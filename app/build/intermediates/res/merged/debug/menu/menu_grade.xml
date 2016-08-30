@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.umaru.miyukisyllabus.GradeActivity">
+    <item android:id="@+id/action_static" android:title="@string/grade_menu_static"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_no_pass" android:title="@string/grade_menu_not_pass_only"
+        android:orderInCategory="100" app:showAsAction="never" />
+</menu>
+<!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/src/main/res/menu/menu_grade.xml -->

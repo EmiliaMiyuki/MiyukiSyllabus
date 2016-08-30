@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Miyuki\AndroidStudioProjects\MiyukiSyllabus\app\libs\jsoup-1.9.2.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="edb0ddf3bd59dec0947f6eda75b6cf2264fc5e4b">
+        <dex dex="C:\Users\Miyuki\AndroidStudioProjects\MiyukiSyllabus\app\build\intermediates\pre-dexed\debug\jsoup-1.9.2-bbac6ec13db521de2938ff5e8485c7952f0ce503.jar" />
+    </item>
+
+</items>

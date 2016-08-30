@@ -1,0 +1,260 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/drawer"
+    android:layout_width="match_parent" android:fitsSystemWindows="true"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <include android:id="@+id/toolbar_actionbar" layout="@layout/toolbar_default"
+            android:layout_width="match_parent" android:layout_height="wrap_content" />
+
+        <LinearLayout android:id="@+id/main_container" android:layout_width="match_parent"
+            android:clickable="true" android:layout_height="match_parent" android:background="#eee"
+            android:orientation="vertical">
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical" android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <LinearLayout android:orientation="horizontal"
+                    android:layout_width="fill_parent" android:layout_height="0dip"
+                    android:layout_weight="1"
+                    >
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"
+                        android:text="@string/monday"
+                        android:background="@color/sy_title"
+                        android:gravity="center"
+                        />
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"
+                        android:text="@string/thursday"
+                        android:background="@color/sy_title"
+                        android:gravity="center" />
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"
+                        android:text="@string/wendesday"
+                        android:background="@color/sy_title"
+                        android:gravity="center"
+                        />
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"
+                        android:text="@string/thuseday"
+                        android:background="@color/sy_title"
+                        android:gravity="center"
+                        />
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"
+                        android:text="@string/friday"
+                        android:background="@color/sy_title"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
+
+                <LinearLayout android:orientation="horizontal"
+                    android:layout_width="match_parent" android:layout_height="0dip"
+                    android:layout_weight="2">
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="1"
+                        android:background="@color/sy_title"
+                        android:gravity="center"
+                        />
+                    <TextView
+                        android:id="@+id/sy11"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy12"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy13"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy14"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy15"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+
+                </LinearLayout>
+                <LinearLayout android:orientation="horizontal"
+                    android:layout_width="match_parent" android:layout_height="0dip"
+                    android:layout_weight="2"
+                    >
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="2"
+                        android:background="@color/sy_title"
+                        android:gravity="center"
+                        />
+                    <TextView
+                        android:id="@+id/sy21"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy22"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy23"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy24"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy25"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                </LinearLayout>
+                <LinearLayout android:orientation="horizontal"
+                    android:layout_width="match_parent" android:layout_height="0dip"
+                    android:layout_weight="2"
+                    >
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="3"
+                        android:background="@color/sy_title"
+                        android:gravity="center"/>
+                    <TextView
+                        android:id="@+id/sy31"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy32"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy33"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy34"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy35"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+
+                </LinearLayout>
+                <LinearLayout android:orientation="horizontal"
+                    android:layout_width="match_parent" android:layout_height="0dip"
+                    android:layout_weight="2"
+                    >
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="4"
+                        android:background="@color/sy_title"
+                        android:gravity="center"/>
+                    <TextView
+                        android:id="@+id/sy41"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy42"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy43"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy44"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy45"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                </LinearLayout>
+                <LinearLayout android:orientation="horizontal"
+                    android:layout_width="match_parent" android:layout_height="0dip"
+                    android:layout_weight="2"
+                    >
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="5"
+                        android:background="@color/sy_title"
+                        android:gravity="center" />
+                    <TextView
+                        android:id="@+id/sy51"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy52"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy53"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy54"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                    <TextView
+                        android:id="@+id/sy55"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout><!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/src/main/res/layout/activity_syllabus.xml -->

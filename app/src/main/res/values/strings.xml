@@ -1,0 +1,121 @@
+<resources>
+    <string name="app_name">Miyuki Syllabus</string>
+    <string name="drawer_open">Menu opened</string>
+    <string name="drawer_close">Menu closed</string>
+    <string name="action_settings">刷新</string>
+
+    <string name="main_menu_today">今日课程</string>
+    <string name="main_menu_full_list">课程表</string>
+    <string name="main_menu_import">从教务系统导入课表</string>
+    <string name="main_menu_grade">成绩查询</string>
+    <string name="main_menu_settings">设置</string>
+    <string name="main_menu_about">关于</string>
+
+    <drawable name="color_cv_btn_clicked">#aaa</drawable>
+    <drawable name="color_cv_btn_unclicked">#fff</drawable>
+    <string name="title_activity_login">登录教务系统</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="context_activity_login"></string>
+
+    <string name="login_verify">验证码(点击图片刷新验证码)</string>
+    <string name="login_user">用户名</string>
+    <string name="login_password">密码</string>
+    <string name="login_password_rem">密码 (使用已保存的密码)</string>
+    <string name="login_login">登录</string>
+    <string name="login_comment">注意：仅测试了适用于太原科技大学所使用的版本的的正方教务管理系统，由于版本问题，并不保证其他学校的正方教务系统可以使用。如果要使用其他学校的请手动更改配置文件。</string>
+    <string name="login_remerber_password">记住密码</string>
+
+    <!-- 设置界面 -->
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="setting_title_general">通用</string>
+    <string name="setting_title_notification">通知</string>
+    <string name="setting_title_advanced">高级</string>
+
+    <string name="setting_item_current_week">当前周数</string>
+    <string name="setting_item_display_mame">显示的姓名</string>
+    <string name="setting_item_change_profile_image">更换头像图片</string>
+    <string name="setting_item_change_profile_image_desc">更换用户名片上的头像</string>
+    <string name="setting_item_night_mode">夜间模式</string>
+    <string name="setting_item_night_mode_desc">使用暗色调主题</string>
+    <string name="setting_item_change_bg">更换背景</string>
+    <string name="setting_item_change_bg_desc">更换用户名片上方的背景图片</string>
+
+    <string name="setting_item_notificate_course">提示每日课程</string>
+    <string name="setting_item_notificate_course_desc">设置是否在通知栏发送每日课程的通知</string>
+    <string name="setting_display_welcome">显示欢迎提示</string>
+    <string name="setting_display_welcome_desc">设置是否在应用启动时显示欢迎提示</string>
+
+    <string name="setting_item_jwcurl">自定义教务处网址</string>
+    <string name="setting_item_jwcurl_default">http://newjwc.tyust.edu.cn/</string>
+    <string name="setting_clear_cache">清除缓存</string>
+    <string name="setting_clear_cache_desc">清除用于保存头像和背景图片的缓存</string>
+    <string name="setting_item_edit_config_file">编辑配置文件</string>
+    <string name="setting_item_edit_config_file_desc">使用外部程序手动编辑配置文件来更改更多设置</string>
+
+
+    <string name="title_activity_about">AboutActivity</string>
+
+    <!-- 关于界面 -->
+    <string name="about_version">版本</string>
+    <string name="about_version_desc">0.0.1</string>
+    <string name="about_author">作者</string>
+    <string name="about_author_desc">Miyuki</string>
+    <string name="about_gpl">协议</string>
+    <string name="about_gpl_desc">GPLv3</string>
+    <string name="about_license">开放源代码许可</string>
+    <string name="about_license_desc">查看开放源代码许可</string>
+    <string name="about_source">源代码</string>
+    <string name="about_source_desc">https://github.com/MiyukiMiyuki/MiyukiSyllabus</string>
+    <string name="title_activity_syllabus">SyllabusActivity</string>
+    <string name="title_activity_import">ImportActivity</string>
+
+    <!-- 导入界面 -->
+    <string name="import_summary">请选择导入课表的来源。在某些情况下学生个人课表的更新会晚于专业推荐课表的发布时间。</string>
+    <string name="import_from_personal">从学生个人课表导入</string>
+    <string name="import_from_major">从专业推荐课表导入</string>
+
+    <!-- 成绩查询界面 -->
+    <string name="title_activity_grade_prepare">GradePrepareActivity</string>
+    <string name="grade_prepare_query_grade">查询本学期的成绩</string>
+    <string name="grade_prepare_comment">查询其他学期的成绩</string>
+    <string name="grade_prepare_year">学年</string>
+    <string name="grade_prepare_semester">学期</string>
+    <string name="grade_prepare_year_hint">输入学年(如2015-2016)</string>
+    <string name="grade_prepare_semester_hint">输入学期(如2)</string>
+    <string name="grade_prepare_all_grade">总成绩</string>
+    <string name="grade_prepare_year_grade">学年成绩</string>
+    <string name="grade_prepare_semester_grade">学期成绩</string>
+    <string name="grade_prepare_static">统计</string>
+
+    <!-- 成绩查询结果界面 -->
+    <string name="title_activity_grade">GradeActivity</string>
+    <string name="grade_menu_static">统计</string>
+    <string name="grade_menu_not_pass_only">只查看不及格成绩</string>
+
+
+    <string name="title_activity_web_browser">WebBrowserActivity</string>
+
+    <!-- 课程表界面 -->
+    <string name="monday">一</string>
+    <string name="thursday">二</string>
+    <string name="wendesday">三</string>
+    <string name="thuseday">四</string>
+    <string name="friday">五</string>
+
+    <string name="syllabus_edit_name">课程名称</string>
+    <string name="syllabus_edit_name_hint">课程名称</string>
+    <string name="syllabus_edit_week">上课周数</string>
+    <string name="syllabus_edit_week_hint">1-16</string>
+    <string name="syllabus_edit_special_time">特定上课时间</string>
+    <string-array name="syllabus_special_time_value">
+        <item>无</item>
+        <item>单周</item>
+        <item>双周</item>
+    </string-array>
+    <string name="syllabus_edit_teacher">教师</string>
+    <string name="syllabus_edit_place">上课地点</string>
+
+
+</resources>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/syllabus_edit_name"/>
+        <EditText
+            android:id="@+id/syllabus_edit_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/syllabus_edit_name_hint"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/syllabus_edit_week"/>
+        <EditText
+            android:id="@+id/syllabus_edit_week"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/syllabus_edit_week_hint"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/syllabus_edit_teacher"/>
+        <EditText
+            android:id="@+id/syllabus_edit_teacher"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/syllabus_edit_teacher"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/syllabus_edit_special_time"/>
+        <Spinner
+            android:id="@+id/syllabus_edit_special_time"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:entries="@array/syllabus_special_time_value">
+
+        </Spinner>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/syllabus_edit_place"/>
+        <EditText
+            android:id="@+id/syllabus_edit_place"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/syllabus_edit_place"/>
+    </LinearLayout>
+
+</ScrollView><!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/src/main/res/layout/add_new_course_dialog.xml -->
