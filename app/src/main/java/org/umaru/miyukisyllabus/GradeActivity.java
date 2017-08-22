@@ -33,7 +33,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import GradeRelated.RequestParamters;
-import ProgramFeatures.CourseInfo;
 import ProgramFeatures.Static;
 
 public class GradeActivity extends AppCompatActivity {

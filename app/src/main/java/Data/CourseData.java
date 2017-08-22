@@ -35,6 +35,12 @@ public class CourseData {
         return specialTime;
     }
 
+    public String getSpecialTimeString() {
+        if (specialTime == 1) return "单周";
+        else if (specialTime == 2) return "双周";
+        return "";
+    }
+
     public void setSpecialTime(int specialTime) {
         this.specialTime = specialTime;
     }
@@ -86,5 +92,7 @@ public class CourseData {
     public void setEndWeek(int endWeek) {
         this.endWeek = endWeek;
     }
+
+    public String getDescription() { return "第"+getCourseIndex()+"节，"+getClassroom(); }
 
 }

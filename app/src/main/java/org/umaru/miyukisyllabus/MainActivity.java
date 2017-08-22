@@ -31,11 +31,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 import CourseList.CourseListAdapter;
 import CourseList.CourseListOnClick;
-import ProgramFeatures.CourseInfo;
+import Data.CourseData;
+import Data.CourseDataDAO;
 import ProgramFeatures.ProgramConfig;
 import ProgramFeatures.Static;
 
@@ -52,7 +54,8 @@ public class MainActivity extends ActionBarActivity
     private ListView list_daily_course;
 
     // 数据
-    private ArrayList<HashMap<String, Object>> class_list = new ArrayList<>();
+    private CourseDataDAO dao = new CourseDataDAO();
+    private List<CourseData> class_list = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,8 @@ public class MainActivity extends ActionBarActivity
         setSupportActionBar(mToolbar);
 
         // 初始化
+        dao.createList();
+
         Static.PATH_DATA_DIR = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Android/data/"+this.getPackageName();
         Static.PATH_CONFIG_FILE = Static.PATH_DATA_DIR + "/config.json";
         Static.PATH_FILES_DIR = Static.PATH_DATA_DIR + "/files/";
@@ -139,35 +144,17 @@ public class MainActivity extends ActionBarActivity
                     .setNeutralButton("不用了", null)
                     .show();
         }
-        else if (ProgramConfig.welcome)
-        {
+        else if (ProgramConfig.welcome) {
             Toast.makeText(this, "欢迎你" + ProgramConfig.display_name, Toast.LENGTH_SHORT).show();
         }
 
-        System.out.println("*** " + ProgramConfig.courses.size());
+        // Get today's course
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        int day = (cal.get(Calendar.DAY_OF_WEEK) - 2 + 7) % 7;
+        class_list = dao.getDailyCourse(ProgramConfig.current_week, day);
 
-        int class_count = 0;
-        ///TODO:获取数据
-
-        Stack<CourseInfo> cs = new Stack<>();
-
-        for (Integer i: ProgramConfig.courses.keySet()) {
-            CourseInfo t = ProgramConfig.courses.get(i);
-
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(new Date());
-            int w = (cal.get(Calendar.DAY_OF_WEEK) - 2 + 7) % 7;
-
-            if (t.index % 7 == w) {
-                cs.push(t);
-                class_count++;
-            }
-        }
-
-        while (!cs.isEmpty())
-            AddCourse(cs.pop());
-
-        this.setTitle("今日课程(" + class_count + ")");
+        this.setTitle("今日课程(" + class_list.size() + ")");
 
         // 初始化list
         list_daily_course = (ListView)findViewById(R.id.list_daily_course);
@@ -175,19 +162,17 @@ public class MainActivity extends ActionBarActivity
         CourseListAdapter list_dc_adapter = new CourseListAdapter(this, class_list, new CourseListOnClick() {
             @Override
             public void onClick(View v, final int position) {
-                //Toast.makeText(MainActivity.this, "Class selected -> " +position, Toast.LENGTH_SHORT).show();
-                CourseInfo t = (CourseInfo)class_list.get(position).get("obj");
+                CourseData t = (CourseData)class_list.get(position);
                 new AlertDialog.Builder(MainActivity.this)
-                        .setTitle((String)class_list.get(position).get("name"))
-                        .setMessage("上课地点："+t.place+"\n教师："+t.teacher+"\n上课周数："+t.startWeek+"到"+t.endWeek+"周"+
-                                (t.special_time == 1 ? "(单周)" : (t.special_time == 2 ? "(双周)" : "")))
+                        .setTitle((String)class_list.get(position).getName())
+                        .setMessage("上课地点："+t.getClassroom()+"\n教师："+t.getTeacher()+"\n上课周数："+t.getStartWeek()+"到"+t.getEndWeek()+"周 ("+t.getSpecialTimeString()+")")
                         .setPositiveButton("确定", null)
                         .setNegativeButton("在课程表中查看", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(MainActivity.this, SyllabusActivity.class);
                                 Bundle bundle = new Bundle();
-                                bundle.putInt("index", ((CourseInfo) class_list.get(position).get("obj")).index); ///TODO: 传入正确的index而不是0
+                                bundle.putInt("index", 0);
                                 intent.putExtras(bundle);
                                 startActivity(intent);
                             }
@@ -303,15 +288,6 @@ public class MainActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    // 数据操作
-    private void AddCourse(CourseInfo c) {
-        HashMap<String, Object> tmp = new HashMap<>();
-        tmp.put("name", c.name);
-        tmp.put("description", "第"+(c.index / 7 + 1)+"节，"+c.place);
-        tmp.put("obj", c);
-        class_list.add(tmp);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class CourseDataDAO {
             + COLUMN_END_WEEK + " int) ";
 
     public final String SQL_ENTRY_SELECT_WEEKLY_COURSE =
-            "select * from " + TABLE_NAME + " where " + COLUMN_SPECIAL_TIME + " & ? != 0 and "
+            "select rowid, * from " + TABLE_NAME + " where " + COLUMN_SPECIAL_TIME + " & ? != 0 and "
             + COLUMN_START_WEEK + " <= ? and " + COLUMN_END_WEEK + " >= ? ";
 
     public final String SQL_ENTRY_SELECT_DAILY_COURSE =
@@ -46,7 +46,7 @@ public class CourseDataDAO {
     public final String SQL_ENTRY_INSERT_COURSE = "insert into " + TABLE_NAME + " values (?,?,?,?,?,?,?,?)";
 
     public final String SQL_ENTRY_SELECT_COURSE =
-            "select * from " + TABLE_NAME + " where " + COLUMN_SPECIAL_TIME + " & ? != 0 and "
+            "select rowid, * from " + TABLE_NAME + " where " + COLUMN_SPECIAL_TIME + " & ? != 0 and "
                     + COLUMN_START_WEEK + " <= ? and " + COLUMN_END_WEEK + " >= ? " + " and " + COLUMN_WEEKDAY + " = ?  and " + COLUMN_CLASS_INDEX + " = ?";
 
     public final String SQL_ENTRY_DELETE_WHERE_CLAUSE = COLUMN_SPECIAL_TIME + " & ? != 0 and "
@@ -86,11 +86,11 @@ public class CourseDataDAO {
 
     // Operations
 
-    public List<CourseData> getFullCourseList(int week) {
-        Cursor cur = db.rawQuery(SQL_ENTRY_SELECT_WEEKLY_COURSE, new String[]{ ""+getFullCourseList(week), ""+week, ""+week });
+    public List<CourseData> getWeeklyCourse(int week) {
+        Cursor cur = db.rawQuery(SQL_ENTRY_SELECT_WEEKLY_COURSE, new String[]{ ""+getSpecifiedTimeByWeek(week), ""+week, ""+week });
         List<CourseData> lst = new ArrayList<>();
-        if (cur == null)
-            return null;
+        if (cur.getCount() <= 0)
+            return lst;
         cur.moveToFirst();
         for (int i=0; i<cur.getCount(); i++) {
             lst.add(fillCourseData(cur));
@@ -104,17 +104,17 @@ public class CourseDataDAO {
     }
 
     public CourseData getCourse(int week, int day, int index) {
-        Cursor cur = db.rawQuery(SQL_ENTRY_SELECT_COURSE, new String[]{ ""+getFullCourseList(week), ""+week, ""+week, ""+day, ""+index });
-        if (cur == null) return null;
+        Cursor cur = db.rawQuery(SQL_ENTRY_SELECT_COURSE, new String[]{ ""+getSpecifiedTimeByWeek(week), ""+week, ""+week, ""+day, ""+index });
+        if (cur.getCount() <= 0) return null;
         cur.moveToFirst();
         return fillCourseData(cur);
     }
     
     public List<CourseData> getDailyCourse(int week, int day) {
-        Cursor cur = db.rawQuery(SQL_ENTRY_SELECT_DAILY_COURSE, new String[]{ ""+getFullCourseList(week), ""+week, ""+week, ""+day });
+        Cursor cur = db.rawQuery(SQL_ENTRY_SELECT_DAILY_COURSE, new String[]{ ""+getSpecifiedTimeByWeek(week), ""+week, ""+week, ""+day });
         List<CourseData> lst = new ArrayList<>();
-        if (cur == null)
-            return null;
+        if (cur.getCount() <= 0)
+            return lst;
         cur.moveToFirst();
         for (int i=0; i<cur.getCount(); i++) {
             lst.add(fillCourseData(cur));
@@ -132,7 +132,7 @@ public class CourseDataDAO {
     }
 
     public boolean deleteCourse(int week, int day, int index) {
-        return db.delete(TABLE_NAME, SQL_ENTRY_DELETE_WHERE_CLAUSE, new String[] { ""+getFullCourseList(week), ""+week, ""+week, ""+day, ""+index }) != 0;
+        return db.delete(TABLE_NAME, SQL_ENTRY_DELETE_WHERE_CLAUSE, new String[] { ""+getSpecifiedTimeByWeek(week), ""+week, ""+week, ""+day, ""+index }) != 0;
     }
 
     public boolean deleteCourse(CourseData d) {

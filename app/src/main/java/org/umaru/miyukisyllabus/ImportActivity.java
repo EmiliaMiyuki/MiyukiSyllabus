@@ -22,8 +22,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import Data.CourseData;
+import Data.CourseDataDAO;
 import GradeRelated.RequestParamters;
-import ProgramFeatures.CourseInfo;
 import ProgramFeatures.ProgramConfig;
 import ProgramFeatures.Static;
 
@@ -33,6 +34,8 @@ public class ImportActivity extends AppCompatActivity {
     Button btn_from_major;
 
     ProgressDialog progressDialog;
+
+    CourseDataDAO dao = new CourseDataDAO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,12 +96,10 @@ public class ImportActivity extends AppCompatActivity {
 
             classes_tmp = doc_class.select("#Table1 tr");
             System.out.println(classes_tmp.size());
-            ProgramConfig.clearCourseInfo();
+
+            dao.clearData();
             for (int i=0; i<5; i++) {
                 Element e = classes_tmp.get((i+1)*2);
-                String str = e.html();
-                System.out.println("E.html");
-                System.out.println(e.html());
 
                 Pattern p = Pattern.compile("(?<=<td(( class=\"noprint\"){0,1}) align=\"Center\"(( rowspan=\"2\"){0,1})(( width=\"7%\"){0,1})?>).*?(?=<\\/td1?>)");
                 Matcher m = p.matcher(e.html());
@@ -106,14 +107,12 @@ public class ImportActivity extends AppCompatActivity {
                 for (int j=0; j<7; j++) {
                     if (m.find()){
                         String t = m.group(0).replace("<br>", "\n").replace("&nbsp;", " ");
-                        getCourseInfo(t, i*7+j);
+                        getCourseInfo(t, i, j);
                     }
                     else {
                         System.out.println("Does not match: "+(i*7+j));
                     }
                 }
-
-                Static.WriteSettings();
             }
             return true;
         } catch (IOException e) {
@@ -123,30 +122,27 @@ public class ImportActivity extends AppCompatActivity {
         return false;
     }
 
-    void getCourseInfo(String src, int index) {
+    void getCourseInfo(String src, int index, int weekday) {
         Pattern p = Pattern.compile("(.*?)\\n周(.*?)?第(\\d),\\d节\\{第(\\d{1,2})\\-(\\d{1,2})周(\\|(([单|双])周))?\\}\\n(.*)?\\n(.*)");
         Matcher m = p.matcher(src);
-        while (m.find()) {
-            CourseInfo t = new CourseInfo();
-            t.name = m.group(1);
-            t.index = index;
-            t.startWeek = Integer.parseInt(m.group(4));
-            t.endWeek = Integer.parseInt(m.group(5));
-            String st = "" + m.group(8);
-            t.special_time = (st.equals("单") ? 2 : st.equals("双") ? 1 : 0);
-            t.teacher = m.group(9);
-            t.place = m.group(10);
 
-            System.out.println("课程名称: " + t.name);
-            System.out.println("上课时间: " + "周" + (t.index / 5) + "第" + (t.index % 5) + "节");
-            System.out.println("教师: " + t.teacher);
-            System.out.println("特殊时间: " + t.special_time);
-            System.out.println("起始周: " + t.startWeek);
-            System.out.println("结苏周: " + t.endWeek);
-            System.out.println("上课地点:" + t.place);
-            ProgramConfig.putCourseInfo(t);
-            System.out.println("当前长度: " + ProgramConfig.course.length());
-            ProgramConfig.courses.put(t.index, t);
+        while (m.find()) {
+            CourseData t = new CourseData();
+            t.setName(m.group(1));
+            t.setCourseIndex(index);
+            t.setWeekday(weekday);
+            t.setStartWeek(Integer.parseInt(m.group(4)));
+            t.setEndWeek(Integer.parseInt(m.group(5)));
+            String st = "" + m.group(8);
+            t.setSpecialTime(st.equals("单") ? 1 : st.equals("双") ? 2 : 3);
+            t.setTeacher(m.group(9));
+            t.setClassroom(m.group(10));
+
+            System.out.println("课程名称: " + t.getName());
+            System.out.println("上课时间: " + "周" + t.getWeekday() + "第" + t.getCourseIndex() + "节");
+
+            if (!dao.insertCourse(t))
+                Toast.makeText(ImportActivity.this, "获取课表时发生错误 (code 1)", Toast.LENGTH_SHORT).show();
         }
     }
 

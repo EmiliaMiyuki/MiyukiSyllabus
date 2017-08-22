@@ -344,7 +344,7 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                     break;
                 case TOAST_TIMEOUT:
-                    Toast.makeText(LoginActivity.this, "请求超时，请重试。", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "发送请求时发生错误。", Toast.LENGTH_SHORT).show();
                     process_dialog.dismiss();
                     break;
             }

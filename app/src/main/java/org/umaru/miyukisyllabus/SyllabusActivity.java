@@ -22,14 +22,18 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
-import ProgramFeatures.CourseInfo;
+import Data.CourseData;
+import Data.CourseDataDAO;
 import ProgramFeatures.ProgramConfig;
 import ProgramFeatures.Static;
 
 public class SyllabusActivity extends AppCompatActivity {
     Toolbar mToolbar;
     TextView[] classes = new TextView[25];
+
+    CourseDataDAO dao = new CourseDataDAO();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +50,7 @@ public class SyllabusActivity extends AppCompatActivity {
             }
         });
 
-        this.setTitle("课程表");
+        this.setTitle("课程表 (第" + ProgramConfig.current_week + "周)");
 
         classes[0] = (TextView)findViewById(R.id.sy11);
         classes[1] = (TextView)findViewById(R.id.sy12);
@@ -78,96 +82,27 @@ public class SyllabusActivity extends AppCompatActivity {
     }
 
     void updateCourseList() {
-        for (int i=0; i<25; i++) {
-            final int curr_i = i;
-            boolean has_class = ProgramConfig.courses.containsKey((i / 5) * 7 + i % 5);
-            if (!has_class) {
-                classes[i].setText("");
-                classes[i].setBackgroundColor(Color.TRANSPARENT);
-                classes[i].setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        new AlertDialog.Builder(SyllabusActivity.this)
-                                .setTitle("这个时间没有课程")
-                                .setMessage("你可以手动添加在该时间的课程，也可以从教务系统导入课程。")
-                                .setNegativeButton("导入", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(SyllabusActivity.this, LoginActivity.class);
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("destination", "import");
-                                        intent.putExtras(bundle);
-                                        startActivity(intent);
-                                    }
-                                })
-                                .setPositiveButton("手动添加", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        LayoutInflater inflater = LayoutInflater.from(SyllabusActivity.this);
-                                        View view = inflater.inflate(R.layout.add_new_course_dialog, null);
+        List<CourseData> lst = dao.getWeeklyCourse(ProgramConfig.current_week);
 
-                                        final EditText txt_name = (EditText) view.findViewById(R.id.syllabus_edit_name);
-                                        final EditText txt_week = (EditText) view.findViewById(R.id.syllabus_edit_week);
-                                        final Spinner txt_special_time = (Spinner) view.findViewById(R.id.syllabus_edit_special_time);
-                                        final EditText txt_place = (EditText) view.findViewById(R.id.syllabus_edit_place);
-                                        final EditText txt_teacher = (EditText) view.findViewById(R.id.syllabus_edit_teacher);
+        boolean filled[] = new boolean[25];
+        for (int i=0; i<25; i++) filled[i] = false;
 
-                                        new AlertDialog.Builder(SyllabusActivity.this)
-                                                .setTitle("添加课程")
-                                                .setView(view)
-                                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        CourseInfo ci = new CourseInfo();
-                                                        JSONObject obj = new JSONObject();
-                                                        try {
-                                                            if (txt_week.getText().toString().equals(""))
-                                                                txt_week.setText(txt_week.getHint());
-                                                            ci.startWeek = Integer.parseInt(txt_week.getText().toString().split("\\-")[0]);
-                                                            ci.endWeek = Integer.parseInt(txt_week.getText().toString().split("\\-")[1]);
-                                                        } catch (Exception e) {
-                                                            Toast.makeText(SyllabusActivity.this, "请输入正确的课程起止时间。", Toast.LENGTH_SHORT).show();
-                                                            return;
-                                                        }
-                                                        ci.place = txt_place.getText().toString();
-                                                        ci.name = txt_name.getText().toString();
-                                                        if (ci.name.equals("")) {
-                                                            Toast.makeText(SyllabusActivity.this, "请输入课程名。", Toast.LENGTH_SHORT).show();
+        for (final CourseData data : lst) {
+            int i = (data.getWeekday()) + data.getCourseIndex() *5;
+            filled[i] = true;
 
-                                                            return;
-                                                        }
-                                                        ci.special_time = txt_special_time.getSelectedItemPosition();
-                                                        ci.index = (curr_i / 5) * 7 + curr_i % 5;
-                                                        ci.teacher = txt_teacher.getText().toString();
-                                                        ProgramConfig.putCourseInfo(ci);
-                                                        Static.WriteSettings();
-                                                        ProgramConfig.courses.put((curr_i / 5) * 7 + curr_i % 5, ci);
-                                                        updateCourseList();
-                                                    }
-                                                })
-                                                .setNegativeButton("取消", null)
-                                                .setCancelable(false)
-                                                .show();
-                                    }
-                                })
-                                .show();
-                    }
-                });
-                continue;
-            }
-            final CourseInfo t = ProgramConfig.courses.get((i / 5) * 7 + i % 5);
             classes[i].setBackgroundColor(genRandColor());
             classes[i].setTextColor(getResources().getColor(R.color.sy_text_class));
-            classes[i].setText(t.name + "\n" + t.place);
+            classes[i].setText(data.getName() + "\n" + data.getClassroom());
             classes[i].setGravity(Gravity.CENTER);
             classes[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
             classes[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     new AlertDialog.Builder(SyllabusActivity.this)
-                            .setTitle(t.name)
-                            .setMessage("上课周数："+t.startWeek+"到"+t.endWeek+"周\n"+
-                                    "教师："+t.teacher+"\n教室："+t.place)
+                            .setTitle(data.getName())
+                            .setMessage("上课周数："+data.getStartWeek()+"到"+data.getEndWeek()+"周\n"+
+                                    "教师："+data.getTeacher()+"\n教室："+data.getClassroom())
                             .setNegativeButton("编辑", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -181,11 +116,11 @@ public class SyllabusActivity extends AppCompatActivity {
                                     final EditText txt_place = (EditText) view.findViewById(R.id.syllabus_edit_place);
                                     final EditText txt_teacher = (EditText) view.findViewById(R.id.syllabus_edit_teacher);
 
-                                    txt_name.setText(t.name);
-                                    txt_week.setText(t.startWeek + "-" + t.endWeek);
-                                    txt_place.setText(t.place);
-                                    txt_special_time.setSelection(t.special_time);
-                                    txt_teacher.setText(t.teacher);
+                                    txt_name.setText(data.getName());
+                                    txt_week.setText(data.getStartWeek() + "-" + data.getEndWeek());
+                                    txt_place.setText(data.getClassroom());
+                                    txt_special_time.setSelection(data.getSpecialTime() == 3?0:data.getSpecialTime());
+                                    txt_teacher.setText(data.getTeacher());
 
                                     new AlertDialog.Builder(SyllabusActivity.this)
                                             .setTitle("编辑课程")
@@ -193,36 +128,32 @@ public class SyllabusActivity extends AppCompatActivity {
                                             .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    int tmp = ProgramConfig.findCourseObjectByIndex(t.index);
-                                                    System.out.println(ProgramConfig.course.length());
-                                                    ProgramConfig.course.remove(tmp);
-                                                    ProgramConfig.courses.remove(t.index);
-                                                    System.out.println(ProgramConfig.course.length());
-
-                                                    CourseInfo ci = new CourseInfo();
                                                     JSONObject obj = new JSONObject();
                                                     try {
                                                         if (txt_week.getText().toString().equals(""))
                                                             txt_week.setText(txt_week.getHint());
-                                                        ci.startWeek = Integer.parseInt(txt_week.getText().toString().split("\\-")[0]);
-                                                        ci.endWeek = Integer.parseInt(txt_week.getText().toString().split("\\-")[1]);
+                                                        data.setStartWeek(Integer.parseInt(txt_week.getText().toString().split("\\-")[0]));
+                                                        data.setEndWeek(Integer.parseInt(txt_week.getText().toString().split("\\-")[1]));
                                                     } catch (Exception e) {
                                                         Toast.makeText(SyllabusActivity.this, "请输入正确的课程起止时间。", Toast.LENGTH_SHORT).show();
                                                         return;
                                                     }
-                                                    ci.place = txt_place.getText().toString();
-                                                    ci.name = txt_name.getText().toString();
-                                                    if (ci.name.equals("")) {
+                                                    data.setClassroom(txt_place.getText().toString());
+                                                    data.setName(txt_name.getText().toString());
+                                                    if (data.getName().equals("")) {
                                                         Toast.makeText(SyllabusActivity.this, "请输入课程名。", Toast.LENGTH_SHORT).show();
 
                                                         return;
                                                     }
-                                                    ci.special_time = txt_special_time.getSelectedItemPosition();
-                                                    ci.index = (curr_i / 5) * 7 + curr_i % 5;
-                                                    ci.teacher = txt_teacher.getText().toString();
-                                                    ProgramConfig.putCourseInfo(ci);
-                                                    Static.WriteSettings();
-                                                    ProgramConfig.courses.put((curr_i / 5) * 7 + curr_i % 5, ci);
+
+                                                    int special_time = txt_special_time.getSelectedItemPosition();
+                                                    if (special_time == 0) special_time = 3;  // 每周都上的课是3，但选择的index是0
+                                                    data.setSpecialTime(special_time);
+
+                                                    data.setCourseIndex(data.getCourseIndex());
+                                                    data.setTeacher(txt_teacher.getText().toString());
+
+                                                    dao.insertCourse(data);
                                                     updateCourseList();
                                                 }
                                             })
@@ -231,8 +162,7 @@ public class SyllabusActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     Static.canCloseDialog(dialog, false);
-                                                    final int tmp = ProgramConfig.findCourseObjectByIndex(t.index);
-                                                    if (tmp == -1) {
+                                                    if (data == null) {
                                                         Toast.makeText(SyllabusActivity.this, "该课程不存在。", Toast.LENGTH_SHORT).show();
                                                         Static.canCloseDialog(dialog, true);
                                                         return;
@@ -243,11 +173,7 @@ public class SyllabusActivity extends AppCompatActivity {
                                                             .setPositiveButton("是", new DialogInterface.OnClickListener() {
                                                                 @Override
                                                                 public void onClick(DialogInterface dialog, int which) {
-                                                                    System.out.println(ProgramConfig.course.length());
-                                                                    ProgramConfig.course.remove(tmp);
-                                                                    ProgramConfig.courses.remove(t.index);
-                                                                    System.out.println(ProgramConfig.course.length());
-                                                                    Static.WriteSettings();
+                                                                    dao.deleteCourse(data);
                                                                     updateCourseList();
                                                                     Static.canCloseDialog(dialog, true);
                                                                 }
@@ -265,6 +191,89 @@ public class SyllabusActivity extends AppCompatActivity {
                 }
             });
         }
+
+        for (int i=0 ;i<25; i++) {
+            if (filled[i]) continue;
+            final int index = i;
+            final CourseData data = new CourseData();
+            classes[i].setText("");
+            classes[i].setBackgroundColor(Color.TRANSPARENT);
+            classes[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(SyllabusActivity.this)
+                            .setTitle("这个时间没有课程")
+                            .setMessage("你可以手动添加在该时间的课程，也可以从教务系统导入课程。")
+                            .setNegativeButton("导入", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(SyllabusActivity.this, LoginActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("destination", "import");
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                }
+                            })
+                            .setPositiveButton("手动添加", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    LayoutInflater inflater = LayoutInflater.from(SyllabusActivity.this);
+                                    View view = inflater.inflate(R.layout.add_new_course_dialog, null);
+
+                                    final EditText txt_name = (EditText) view.findViewById(R.id.syllabus_edit_name);
+                                    final EditText txt_week = (EditText) view.findViewById(R.id.syllabus_edit_week);
+                                    final Spinner txt_special_time = (Spinner) view.findViewById(R.id.syllabus_edit_special_time);
+                                    final EditText txt_place = (EditText) view.findViewById(R.id.syllabus_edit_place);
+                                    final EditText txt_teacher = (EditText) view.findViewById(R.id.syllabus_edit_teacher);
+
+                                    new AlertDialog.Builder(SyllabusActivity.this)
+                                            .setTitle("添加课程")
+                                            .setView(view)
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    CourseData d = new CourseData();
+                                                    try {
+                                                        if (txt_week.getText().toString().equals(""))
+                                                            txt_week.setText(txt_week.getHint());
+                                                        d.setStartWeek(Integer.parseInt(txt_week.getText().toString().split("\\-")[0]));
+                                                        d.setEndWeek(Integer.parseInt(txt_week.getText().toString().split("\\-")[1]));
+                                                    } catch (Exception e) {
+                                                        Toast.makeText(SyllabusActivity.this, "请输入正确的课程起止时间。", Toast.LENGTH_SHORT).show();
+                                                        return;
+                                                    }
+                                                    d.setClassroom(txt_place.getText().toString());
+                                                    d.setName(txt_name.getText().toString());
+                                                    if (d.getName().equals("")) {
+                                                        Toast.makeText(SyllabusActivity.this, "请输入课程名。", Toast.LENGTH_SHORT).show();
+                                                        return;
+                                                    }
+
+                                                    int special_time = txt_special_time.getSelectedItemPosition();
+                                                    if (special_time == 0) special_time = 3;  // 每周都上的课是3，但选择的index是0
+                                                    d.setSpecialTime(special_time);
+
+                                                    d.setCourseIndex(index / 5);
+                                                    d.setWeekday(index % 5);
+                                                    d.setTeacher(txt_teacher.getText().toString());
+
+                                                    if (!dao.insertCourse(d))
+                                                        Toast.makeText(SyllabusActivity.this, "修改课程失败", Toast.LENGTH_SHORT).show();
+                                                    System.out.println("Alter class list");
+
+                                                    updateCourseList();
+                                                }
+                                            })
+                                            .setNegativeButton("取消", null)
+                                            .setCancelable(false)
+                                            .show();
+                                }
+                            })
+                            .show();
+                }
+            });
+        }
+
     }
 
     protected int genRandColor() {

@@ -10,11 +10,13 @@ import org.umaru.miyukisyllabus.R;
 import java.util.*;
 import java.util.zip.Inflater;
 
+import Data.CourseData;
+
 /**
  * Created by Miyuki on 2016/7/29.
  */
 public class CourseListAdapter extends BaseAdapter {
-    private ArrayList<HashMap<String, Object>> data;
+    private List<CourseData> data;
     private LayoutInflater mInflater;
     private CourseListOnClick listener;
 
@@ -24,7 +26,7 @@ public class CourseListAdapter extends BaseAdapter {
         public TextView txt_description;
     }
 
-    public CourseListAdapter(Context c, ArrayList<HashMap<String, Object>> d, CourseListOnClick l) {
+    public CourseListAdapter(Context c, List<CourseData> d, CourseListOnClick l) {
         mInflater = LayoutInflater.from(c);
         data = d;
         listener = l;
@@ -62,8 +64,8 @@ public class CourseListAdapter extends BaseAdapter {
         else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.txt_name.setText((String)data.get(position).get("name"));
-        holder.txt_description.setText((String)data.get(position).get("description"));
+        holder.txt_name.setText((String)data.get(position).getName());
+        holder.txt_description.setText((String)data.get(position).getDescription());
         return convertView;
     }
 }
