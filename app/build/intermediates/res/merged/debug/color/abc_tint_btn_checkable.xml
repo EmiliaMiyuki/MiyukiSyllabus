@@ -19,4 +19,4 @@
     <item android:state_enabled="false" android:color="?attr/colorControlNormal" app:alpha="?android:disabledAlpha"/>
     <item android:state_checked="true" android:color="?attr/colorControlActivated"/>
     <item android:color="?attr/colorControlNormal"/>
-</selector><!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0-alpha1/res/color/abc_tint_btn_checkable.xml -->
+</selector>

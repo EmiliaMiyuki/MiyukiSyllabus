@@ -61,4 +61,4 @@
             android:hint="@string/syllabus_edit_place"/>
     </LinearLayout>
 
-</ScrollView><!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/src/main/res/layout/add_new_course_dialog.xml -->
+</ScrollView>

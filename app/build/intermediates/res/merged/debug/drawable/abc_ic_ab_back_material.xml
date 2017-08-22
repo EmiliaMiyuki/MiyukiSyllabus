@@ -24,4 +24,4 @@
     <path
             android:pathData="M20,11L7.8,11l5.6,-5.6L12,4l-8,8l8,8l1.4,-1.4L7.8,13L20,13L20,11z"
             android:fillColor="@android:color/white"/>
-</vector><!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0-alpha1/res/drawable/abc_ic_ab_back_material.xml -->
+</vector>

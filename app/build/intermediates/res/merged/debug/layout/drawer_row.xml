@@ -7,4 +7,3 @@
         android:textSize="14sp" android:gravity="center_vertical"
         android:textColor="@color/myTextPrimaryColor" />
 </LinearLayout>
-<!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/src/main/res/layout/drawer_row.xml -->

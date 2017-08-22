@@ -37,4 +37,4 @@
         android:layout_height="match_parent" android:background="@color/myDrawerBackground"
         android:layout_below="@+id/separator" />
 
-</RelativeLayout><!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/src/main/res/layout/fragment_navigation_drawer.xml -->
+</RelativeLayout>

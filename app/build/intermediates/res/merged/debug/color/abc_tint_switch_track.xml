@@ -19,4 +19,4 @@
     <item android:state_enabled="false" android:color="?android:attr/colorForeground" app:alpha="0.1"/>
     <item android:state_checked="true" android:color="?attr/colorControlActivated" app:alpha="0.3"/>
     <item android:color="?android:attr/colorForeground" app:alpha="0.3"/>
-</selector><!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0-alpha1/res/color/abc_tint_switch_track.xml -->
+</selector>

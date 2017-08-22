@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/src/main/res/values-v21/styles.xml -->
-    <eat-comment/>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/myPrimaryColor</item>
@@ -17,8 +15,6 @@
         <item name="android:windowBackground">@color/myWindowBackground</item>
         <item name="android:windowContentTransitions">true</item>
     </style>
-    <!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0-alpha1/res/values-v21/values-v21.xml -->
-    <eat-comment/>
     <style name="Base.TextAppearance.AppCompat" parent="android:TextAppearance.Material"/>
     <style name="Base.TextAppearance.AppCompat.Body1" parent="android:TextAppearance.Material.Body1"/>
     <style name="Base.TextAppearance.AppCompat.Body2" parent="android:TextAppearance.Material.Body2"/>
@@ -238,14 +234,10 @@
     <style name="Base.Widget.AppCompat.TextView.SpinnerItem" parent="android:Widget.Material.TextView.SpinnerItem"/>
     <style name="Base.Widget.AppCompat.Toolbar.Button.Navigation" parent="android:Widget.Material.Toolbar.Button.Navigation">
     </style>
-    <!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/src/main/res/values-v21/styles.xml -->
-    <eat-comment/>
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">@android:color/white</item>
     </style>
-    <!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0-alpha1/res/values-v21/values-v21.xml -->
-    <eat-comment/>
     <style name="Platform.AppCompat" parent="android:Theme.Material">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
@@ -278,8 +270,6 @@
     </style>
     <style name="Platform.ThemeOverlay.AppCompat.Dark"/>
     <style name="Platform.ThemeOverlay.AppCompat.Light"/>
-    <!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/src/main/res/values-v21/styles.xml -->
-    <eat-comment/>
     <style name="ToolBarStyle" parent="">
         <item name="android:elevation">@dimen/toolbar_elevation</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>

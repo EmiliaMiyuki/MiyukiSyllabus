@@ -22,4 +22,3 @@
         app:divider="?attr/actionBarDivider"
         app:dividerPadding="12dip"
         android:gravity="center_vertical"/>
-<!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0-alpha1/res/layout/abc_action_menu_layout.xml -->

@@ -30,4 +30,4 @@
         <path android:fillColor="@android:color/black" android:pathData="M7,14 L12,9 L17,14 L7,14 Z" />
         <path android:pathData="M0,0 L24,0 L24,24 L0,24 L0,0 Z" />
     </group>
-</vector><!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0-alpha1/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml -->
+</vector>

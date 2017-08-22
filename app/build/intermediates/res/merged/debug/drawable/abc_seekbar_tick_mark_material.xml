@@ -19,4 +19,4 @@
     <size android:width="@dimen/abc_progress_bar_height_material"
           android:height="@dimen/abc_progress_bar_height_material"/>
     <solid android:color="@android:color/white"/>
-</shape><!-- From: file:/C:/Users/Miyuki/AndroidStudioProjects/MiyukiSyllabus/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0-alpha1/res/drawable/abc_seekbar_tick_mark_material.xml -->
+</shape>
