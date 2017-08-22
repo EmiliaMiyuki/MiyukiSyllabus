@@ -3,18 +3,14 @@ package ProgramFeatures;
 /**
  * Created by Miyuki on 2016/7/31.
  */
-import android.util.Log;
-import android.widget.Toast;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
-
 import org.json.*;
-import org.umaru.miyukisyllabus.MainActivity;
 
 public class ProgramConfig {
     public static boolean first_initial;
-    public static int current_week;
     public static String display_name;
     public static String profile_image_url;
     public static String background_image_url;
@@ -25,9 +21,10 @@ public class ProgramConfig {
     public static String saved_password;
     public static String web_params_login_url;
     public static String web_params_main_url;
+    public static String open_school_date;
     public static boolean welcome;
 
-    public static String package_name = "org.umaru.miyukisyllabus";
+    public static String package_name = "org.ruoxue.miyukisyllabus";
 
     // JSON Object
     public static JSONObject json;
@@ -51,7 +48,7 @@ public class ProgramConfig {
         fin.close();
         json = new JSONObject(str);;
         ProgramConfig.first_initial = json.getBoolean("first_initial");
-        ProgramConfig.current_week = json.getInt("current_week");
+        ProgramConfig.open_school_date = json.getString("open_school_date");
         ProgramConfig.display_name = json.getString("display_name");
         ProgramConfig.profile_image_url = json.getString("profile_image_url");
         ProgramConfig.background_image_url = json.getString("background_image_url");
@@ -63,6 +60,15 @@ public class ProgramConfig {
         ProgramConfig.web_params_login_url = json.getJSONObject("web_params").getString("login_url");
         ProgramConfig.web_params_main_url = json.getJSONObject("web_params").getString("main_url");
         ProgramConfig.welcome = json.getBoolean("welcome");
+    }
+
+    public static int getCurrentWeek() {
+        try {
+            return 1 + (int)( new Date().getTime() -  new SimpleDateFormat("yyyy-MM-dd").parse(ProgramConfig.open_school_date).getTime())/3600/24/7/1000 ;
+        }
+        catch (Exception e) {
+            return 1;
+        }
     }
 
 }

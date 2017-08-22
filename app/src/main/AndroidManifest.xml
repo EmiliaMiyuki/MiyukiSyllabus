@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.umaru.miyukisyllabus" >
+    package="org.ruoxue.miyukisyllabus" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -24,7 +24,7 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
             <intent-filter>
-                <action android:name="org.umaru.miyukisyllabus.MainActivity" />
+                <action android:name="org.ruoxue.miyukisyllabus.MainActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.umaru.miyukisyllabus.test">
+    package="org.ruoxue.miyukisyllabus.test">
 
     <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="23" />
 
@@ -9,8 +9,8 @@
     </application>
 
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-                     android:targetPackage="org.umaru.miyukisyllabus"
+                     android:targetPackage="org.ruoxue.miyukisyllabus"
                      android:handleProfiling="false"
                      android:functionalTest="false"
-                     android:label="Tests for org.umaru.miyukisyllabus"/>
+                     android:label="Tests for org.ruoxue.miyukisyllabus"/>
 </manifest>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.umaru.miyukisyllabus"
+    package="org.ruoxue.miyukisyllabus"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -18,7 +18,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="org.umaru.miyukisyllabus.MainActivity"
+            android:name="org.ruoxue.miyukisyllabus.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,40 +27,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.umaru.miyukisyllabus.LoginActivity"
+            android:name="org.ruoxue.miyukisyllabus.LoginActivity"
             android:label="@string/title_activity_login" >
             <intent-filter>
-                <action android:name="org.umaru.miyukisyllabus.MainActivity" />
+                <action android:name="org.ruoxue.miyukisyllabus.MainActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="org.umaru.miyukisyllabus.SettingActivity"
+            android:name="org.ruoxue.miyukisyllabus.SettingActivity"
             android:label="@string/title_activity_setting" >
         </activity>
         <activity
-            android:name="org.umaru.miyukisyllabus.AboutActivity"
+            android:name="org.ruoxue.miyukisyllabus.AboutActivity"
             android:label="@string/title_activity_about" >
         </activity>
         <activity
-            android:name="org.umaru.miyukisyllabus.SyllabusActivity"
+            android:name="org.ruoxue.miyukisyllabus.SyllabusActivity"
             android:label="@string/title_activity_syllabus" >
         </activity>
         <activity
-            android:name="org.umaru.miyukisyllabus.ImportActivity"
+            android:name="org.ruoxue.miyukisyllabus.ImportActivity"
             android:label="@string/title_activity_import" >
         </activity>
         <activity
-            android:name="org.umaru.miyukisyllabus.GradePrepareActivity"
+            android:name="org.ruoxue.miyukisyllabus.GradePrepareActivity"
             android:label="@string/title_activity_grade_prepare" >
         </activity>
         <activity
-            android:name="org.umaru.miyukisyllabus.GradeActivity"
+            android:name="org.ruoxue.miyukisyllabus.GradeActivity"
             android:label="@string/title_activity_grade" >
         </activity>
         <activity
-            android:name="org.umaru.miyukisyllabus.WebBrowserActivity"
+            android:name="org.ruoxue.miyukisyllabus.WebBrowserActivity"
             android:label="@string/title_activity_web_browser" >
         </activity>
     </application>

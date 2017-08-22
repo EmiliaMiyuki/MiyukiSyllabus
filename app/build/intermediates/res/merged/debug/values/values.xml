@@ -297,7 +297,7 @@
     <string name="import_from_major">从专业推荐课表导入</string>
     <string name="import_from_personal">从学生个人课表导入</string>
     <string name="import_summary">请选择导入课表的来源。在某些情况下学生个人课表的更新会晚于专业推荐课表的发布时间。</string>
-    <string name="login_comment">注意：仅测试了适用于太原科技大学所使用的版本的的正方教务管理系统，由于版本问题，并不保证其他学校的正方教务系统可以使用。如果要使用其他学校的请手动更改配置文件。</string>
+    <string name="login_comment">注意：仅适用于太原科技大学的教务系统</string>
     <string name="login_login">登录</string>
     <string name="login_password">密码</string>
     <string name="login_password_rem">密码 (使用已保存的密码)</string>

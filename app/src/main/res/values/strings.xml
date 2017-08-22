@@ -24,7 +24,7 @@
     <string name="login_password">密码</string>
     <string name="login_password_rem">密码 (使用已保存的密码)</string>
     <string name="login_login">登录</string>
-    <string name="login_comment">注意：仅测试了适用于太原科技大学所使用的版本的的正方教务管理系统，由于版本问题，并不保证其他学校的正方教务系统可以使用。如果要使用其他学校的请手动更改配置文件。</string>
+    <string name="login_comment">注意：仅适用于太原科技大学的教务系统</string>
     <string name="login_remerber_password">记住密码</string>
 
     <!-- 设置界面 -->

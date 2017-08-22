@@ -1,39 +1,27 @@
 package ProgramFeatures;
 
-import android.Manifest;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.widget.Toast;
 
 import org.json.*;
-import org.umaru.miyukisyllabus.LoginActivity;
-import org.umaru.miyukisyllabus.MainActivity;
-import org.umaru.miyukisyllabus.R;
 
 import java.io.*;
 import java.lang.reflect.Field;
 import java.net.HttpCookie;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.PublicKey;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import GradeRelated.RequestParamters;
 
 import org.jsoup.*;
-import org.jsoup.Connection.Method;
 
 /**
  * Created by Miyuki on 2016/7/31.
@@ -100,7 +88,7 @@ public class Static {
         JSONObject o = new JSONObject();
         try {
             o.put("first_initial", false);
-            o.put("current_week", 1);
+            o.put("open_school_date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
             o.put("display_name", "Miyuki");
             o.put("profile_image_url", "");
             o.put("background_image_url", "");

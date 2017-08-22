@@ -1,14 +1,12 @@
 package CourseList;
 
 import android.content.*;
-import android.content.res.Resources;
 import android.view.*;
 import android.widget.*;
 
-import org.umaru.miyukisyllabus.R;
+import org.ruoxue.miyukisyllabus.R;
 
 import java.util.*;
-import java.util.zip.Inflater;
 
 import Data.CourseData;
 

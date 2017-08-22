@@ -24,16 +24,17 @@
         </LinearLayout>
     </LinearLayout>
     <!-- android:layout_marginTop="?android:attr/actionBarSize"-->
-    <org.umaru.miyukisyllabus.ScrimInsetsFrameLayout android:id="@+id/scrimInsetsFrameLayout"
+    <org.ruoxue.miyukisyllabus.ScrimInsetsFrameLayout
+        android:id="@+id/scrimInsetsFrameLayout"
         android:layout_width="@dimen/navigation_drawer_width" android:layout_height="wrap_content"
         android:fitsSystemWindows="true" android:layout_gravity="start" app:insetForeground="#4000"
         android:elevation="10dp">
         <fragment android:id="@+id/fragment_drawer"
-            android:name="org.umaru.miyukisyllabus.NavigationDrawerFragment"
+            android:name="org.ruoxue.miyukisyllabus.NavigationDrawerFragment"
             android:layout_width="@dimen/navigation_drawer_width"
             android:layout_height="match_parent" android:fitsSystemWindows="true"
             app:layout="@layout/fragment_navigation_drawer" />
-    </org.umaru.miyukisyllabus.ScrimInsetsFrameLayout>
+    </org.ruoxue.miyukisyllabus.ScrimInsetsFrameLayout>
 
 
 </android.support.v4.widget.DrawerLayout>
