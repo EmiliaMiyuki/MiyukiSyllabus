@@ -20,13 +20,12 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.List;
 
-import Data.CourseData;
-import Data.CourseDataDAO;
-import ProgramFeatures.ProgramConfig;
-import ProgramFeatures.Static;
+import org.ruoxue.miyukisyllabus.Data.CourseData;
+import org.ruoxue.miyukisyllabus.Data.CourseDataDAO;
+import org.ruoxue.miyukisyllabus.Data.SettingsDTO;
+import org.ruoxue.miyukisyllabus.Util.Static;
 
 public class SyllabusActivity extends AppCompatActivity {
     Toolbar mToolbar;
@@ -79,12 +78,12 @@ public class SyllabusActivity extends AppCompatActivity {
     }
 
     void updateCourseList() {
-        updateCourseList(ProgramConfig.getCurrentWeek());
+        updateCourseList(SettingsDTO.getCurrentWeek());
     }
 
     void updateCourseList(int week) {
         List<CourseData> lst = dao.getWeeklyCourse(week);
-        SyllabusActivity.this.setTitle("课程表 (第"+week+"周"+ (ProgramConfig.getCurrentWeek() != week ? "  非当前周":"") + ")");
+        SyllabusActivity.this.setTitle("课程表 (第"+week+"周"+ (SettingsDTO.getCurrentWeek() != week ? "  非当前周":"") + ")");
 
         boolean filled[] = new boolean[25];
         for (int i=0; i<25; i++) filled[i] = false;
@@ -304,7 +303,7 @@ public class SyllabusActivity extends AppCompatActivity {
         if (id == R.id.action_choose_week) {
             final EditText value = new EditText(SyllabusActivity.this);
             value.setHint("周数");
-            value.setText("" + ProgramConfig.getCurrentWeek());
+            value.setText("" + SettingsDTO.getCurrentWeek());
             new android.app.AlertDialog.Builder(SyllabusActivity.this)
                     .setTitle("输入要查看的周数")
                     .setView(value)

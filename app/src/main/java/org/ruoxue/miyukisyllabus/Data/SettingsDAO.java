@@ -1,11 +1,9 @@
-package Data;
+package org.ruoxue.miyukisyllabus.Data;
 
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -25,20 +23,21 @@ public class SettingsDAO {
     public final String COLUMN_KEY = "key";
     public final String COLUMN_VALUE = "value";
 
-    void setSetting(String key, String value) {
+    public void setSetting(String key, String value) {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_VALUE, value);
         db.update(TABLE_NAME, cv, COLUMN_KEY + "=?", new String[]{ key });
     }
 
-    String getSetting(String key) {
+    public String getSetting(String key) {
         Cursor cur = db.rawQuery("select * from "+TABLE_NAME+" where " + COLUMN_KEY + "=?", new String[]{ key });
         if (cur == null || cur.getCount() <= 0)
             return null;
+        cur.moveToFirst();
         return cur.getString(cur.getColumnIndex(COLUMN_VALUE));
     }
 
-    int getSettingInt(String key) throws Exception {
+    public int getSettingInt(String key) throws Exception {
         try {
             return Integer.parseInt(getSetting(key));
         }
@@ -47,7 +46,7 @@ public class SettingsDAO {
         }
     }
 
-    boolean getSettingBoolean(String key) throws Exception {
+    public boolean getSettingBoolean(String key) throws Exception {
         try {
             return getSetting(key).equals("true");
         }
@@ -56,14 +55,14 @@ public class SettingsDAO {
         }
     }
 
-    void insert(String key, String value) {
+    public void insert(String key, String value) {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_KEY, key);
         cv.put(COLUMN_VALUE, value);
         db.insert(TABLE_NAME, null, cv);
     }
 
-    boolean tableExists(){
+    public boolean tableExists(){
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM sqlite_master WHERE type = ? AND name = ?", new String[] {"table", TABLE_NAME});
         if (!cursor.moveToFirst()) {
             cursor.close();
@@ -74,7 +73,7 @@ public class SettingsDAO {
         return count > 0;
     }
 
-    void createTable() {
+    public void createTable() {
         if (tableExists())
             return;
         db.execSQL("create table " + TABLE_NAME + "(" + COLUMN_KEY + " text primary key, " + COLUMN_VALUE +" text)");
@@ -90,7 +89,25 @@ public class SettingsDAO {
         insert(KEY_SHOW_WELCOME, "");
     }
 
-    void load_settings() {
+    public void loadSettings() {
+        try {
+            SettingsDTO.setAvaterImg(getSetting(KEY_AVATER_IMG));
+            SettingsDTO.setFirstInit(getSettingBoolean(KEY_FIRST_INIT));
+            SettingsDTO.setJwcPassword(getSetting(KEY_JWC_PASSWORD));
+            SettingsDTO.setJwcUserName(getSetting(KEY_JWC_USER_NAME));
+            SettingsDTO.setNotifyCourses(getSettingBoolean(KEY_NOTIFY_COURSE));
+            SettingsDTO.setOpenSchoolDate(getSetting(KEY_OPEN_SCHOOL_DATE));
+            SettingsDTO.setRbackgoundImg(getSetting(KEY_BACKGROUND_IMG));
+            SettingsDTO.setTheme(getSetting(KEY_THEME));
+            SettingsDTO.setUserName(getSetting(KEY_USER_NAME));
+            SettingsDTO.setWelcome(getSettingBoolean(KEY_SHOW_WELCOME));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void dropTable() {
+        db.execSQL("drop table "+TABLE_NAME);
     }
 }

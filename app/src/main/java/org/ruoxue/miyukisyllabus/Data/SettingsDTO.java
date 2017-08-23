@@ -1,4 +1,7 @@
-package Data;
+package org.ruoxue.miyukisyllabus.Data;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Miyuki on 2017/8/23.
@@ -94,5 +97,14 @@ public class SettingsDTO {
 
     public static void setWelcome(boolean welcome) {
         SettingsDTO.welcome = welcome;
+    }
+
+    public static int getCurrentWeek() {
+        try {
+            return 1 + (int)( new Date().getTime() -  new SimpleDateFormat("yyyy-MM-dd").parse(getOpenSchoolDate()).getTime())/3600/24/7/1000 ;
+        }
+        catch (Exception e) {
+            return 1;
+        }
     }
 }

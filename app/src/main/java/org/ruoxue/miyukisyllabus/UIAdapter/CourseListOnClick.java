@@ -1,4 +1,4 @@
-package CourseList;
+package org.ruoxue.miyukisyllabus.UIAdapter;
 
 import android.view.View;
 

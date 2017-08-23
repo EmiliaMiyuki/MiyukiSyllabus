@@ -27,7 +27,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import ProgramFeatures.Static;
+import org.ruoxue.miyukisyllabus.Util.Static;
 
 public class GradeActivity extends AppCompatActivity {
     Toolbar mToolbar;

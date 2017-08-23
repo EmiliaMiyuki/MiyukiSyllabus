@@ -22,9 +22,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import Data.CourseData;
-import Data.CourseDataDAO;
-import ProgramFeatures.Static;
+import org.ruoxue.miyukisyllabus.Data.CourseData;
+import org.ruoxue.miyukisyllabus.Data.CourseDataDAO;
+import org.ruoxue.miyukisyllabus.Util.Static;
 
 public class ImportActivity extends AppCompatActivity {
     Toolbar mToolbar;

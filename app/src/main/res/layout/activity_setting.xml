@@ -158,7 +158,7 @@
                     </LinearLayout>
 
                     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/setting_night_mode"
+                        android:id="@+id/setting_theme"
                         android:orientation="vertical" android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:clickable="true"
@@ -174,7 +174,7 @@
                             android:textColor="#000"
                             android:textSize="16sp"
                             android:layout_marginBottom="3dp"
-                            android:text="@string/setting_item_night_mode"
+                            android:text="@string/setting_item_theme"
                             />
 
                         <TextView
@@ -319,37 +319,6 @@
                         android:text="@string/setting_title_advanced"
                         />
 
-                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/setting_edit_jwc_url"
-                        android:orientation="vertical" android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:background="@drawable/cardview_button_selector"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp"
-                        >
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="#000"
-                            android:textSize="16sp"
-                            android:layout_marginBottom="3dp"
-                            android:text="@string/setting_item_jwcurl"
-                            />
-
-                        <TextView
-                            android:id="@+id/setting_jwc_url"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="#888"
-                            android:textSize="14sp"
-                            android:text="@string/setting_item_jwcurl_default"
-                            />
-
-                    </LinearLayout>
-
 
                     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/setting_clear_cache"
@@ -382,7 +351,7 @@
                     </LinearLayout>
 
                     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/setting_edit_config"
+                        android:id="@+id/setting_restore_defaults"
                         android:orientation="vertical" android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:clickable="true"
@@ -398,7 +367,7 @@
                             android:textColor="#000"
                             android:textSize="16sp"
                             android:layout_marginBottom="3dp"
-                            android:text="@string/setting_item_edit_config_file"
+                            android:text="@string/setting_item_restore_defaults"
                             />
 
                         <TextView
@@ -406,7 +375,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="#888"
                             android:textSize="14sp"
-                            android:text="@string/setting_item_edit_config_file_desc"
+                            android:text="@string/setting_item_restore_defaults_desc"
                             />
 
                     </LinearLayout>

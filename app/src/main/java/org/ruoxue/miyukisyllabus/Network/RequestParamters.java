@@ -1,4 +1,4 @@
-package GradeRelated;
+package org.ruoxue.miyukisyllabus.Network;
 
 import org.jsoup.*;
 import org.jsoup.nodes.Document;

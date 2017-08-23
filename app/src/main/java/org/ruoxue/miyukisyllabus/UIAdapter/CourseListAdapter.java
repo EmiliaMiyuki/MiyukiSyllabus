@@ -1,4 +1,4 @@
-package CourseList;
+package org.ruoxue.miyukisyllabus.UIAdapter;
 
 import android.content.*;
 import android.view.*;
@@ -8,7 +8,7 @@ import org.ruoxue.miyukisyllabus.R;
 
 import java.util.*;
 
-import Data.CourseData;
+import org.ruoxue.miyukisyllabus.Data.CourseData;
 
 /**
  * Created by Miyuki on 2016/7/29.

@@ -37,7 +37,7 @@
     <string name="setting_item_display_mame">显示的姓名</string>
     <string name="setting_item_change_profile_image">更换头像图片</string>
     <string name="setting_item_change_profile_image_desc">更换用户名片上的头像</string>
-    <string name="setting_item_night_mode">夜间模式</string>
+    <string name="setting_item_theme">主题</string>
     <string name="setting_item_night_mode_desc">使用暗色调主题</string>
     <string name="setting_item_change_bg">更换背景</string>
     <string name="setting_item_change_bg_desc">更换用户名片上方的背景图片</string>
@@ -47,12 +47,10 @@
     <string name="setting_display_welcome">显示欢迎提示</string>
     <string name="setting_display_welcome_desc">设置是否在应用启动时显示欢迎提示</string>
 
-    <string name="setting_item_jwcurl">自定义教务处网址</string>
-    <string name="setting_item_jwcurl_default">http://newjwc.tyust.edu.cn/</string>
     <string name="setting_clear_cache">清除缓存</string>
     <string name="setting_clear_cache_desc">清除用于保存头像和背景图片的缓存</string>
-    <string name="setting_item_edit_config_file">编辑配置文件（已弃用）</string>
-    <string name="setting_item_edit_config_file_desc">使用外部程序手动编辑配置文件来更改更多设置</string>
+    <string name="setting_item_restore_defaults">恢复默认设置</string>
+    <string name="setting_item_restore_defaults_desc">将所有设置恢复到初始设置</string>
 
 
     <string name="title_activity_about">AboutActivity</string>
@@ -67,7 +65,7 @@
     <string name="about_license">开放源代码许可</string>
     <string name="about_license_desc">查看开放源代码许可</string>
     <string name="about_source">源代码</string>
-    <string name="about_source_desc">https://github.com/MiyukiMiyuki/MiyukiSyllabus</string>
+    <string name="about_source_desc">https://github.com/EmiliaMiyuki/MiyukiSyllabus</string>
     <string name="title_activity_syllabus">SyllabusActivity</string>
     <string name="title_activity_import">ImportActivity</string>
 

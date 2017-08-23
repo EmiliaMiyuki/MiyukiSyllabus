@@ -24,12 +24,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import CourseList.CourseListAdapter;
-import CourseList.CourseListOnClick;
-import Data.CourseData;
-import Data.CourseDataDAO;
-import ProgramFeatures.ProgramConfig;
-import ProgramFeatures.Static;
+import org.ruoxue.miyukisyllabus.UIAdapter.CourseListAdapter;
+import org.ruoxue.miyukisyllabus.UIAdapter.CourseListOnClick;
+import org.ruoxue.miyukisyllabus.Data.CourseData;
+import org.ruoxue.miyukisyllabus.Data.CourseDataDAO;
+import org.ruoxue.miyukisyllabus.Data.SettingsDAO;
+import org.ruoxue.miyukisyllabus.Data.SettingsDTO;
+import org.ruoxue.miyukisyllabus.Util.Static;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerCallbacks {
@@ -47,18 +48,23 @@ public class MainActivity extends ActionBarActivity
     private CourseDataDAO dao = new CourseDataDAO();
     private List<CourseData> class_list = null;
 
+    private SettingsDAO settingDao = new SettingsDAO();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ManagedApplication.getInstance().addActivity(this);
+
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
 
         // 初始化
         dao.createList();
+        settingDao.createTable();
 
         Static.PATH_DATA_DIR = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Android/data/"+this.getPackageName();
-        Static.PATH_CONFIG_FILE = Static.PATH_DATA_DIR + "/config.json";
         Static.PATH_FILES_DIR = Static.PATH_DATA_DIR + "/files/";
         Static.PATH_FILE_CHECKCODE = Static.PATH_DATA_DIR + "/files/checkCode.gif";
 
@@ -81,14 +87,14 @@ public class MainActivity extends ActionBarActivity
 
     private void init() {
         Static.checkResourceDir();
-        Static.loadConfig();
-        System.out.println("display-name: "+(ProgramConfig.display_name == null));
-        mNavigationDrawerFragment.setUserData((ProgramConfig.display_name == null || ProgramConfig.display_name.equals("")) ? "未设置" : ProgramConfig.display_name, "", BitmapFactory.decodeResource(getResources(), R.drawable.profile_maki));
+        settingDao.loadSettings();
+
+        mNavigationDrawerFragment.setUserData((SettingsDTO.getUserName() == null || SettingsDTO.getUserName().equals("")) ? "未设置" : SettingsDTO.getUserName(), "", BitmapFactory.decodeResource(getResources(), R.drawable.profile_maki));
 
         try {
-            if (!ProgramConfig.background_image_url.equals("")) {
+            if (!SettingsDTO.getRbackgoundImg().equals("")) {
                 //Toast.makeText(MainActivity.this, "Background: " + ProgramConfig.background_image_url, Toast.LENGTH_LONG).show();
-                mNavigationDrawerFragment.setBackground(new BitmapDrawable(BitmapFactory.decodeFile(ProgramConfig.background_image_url)));
+                mNavigationDrawerFragment.setBackground(new BitmapDrawable(BitmapFactory.decodeFile(SettingsDTO.getRbackgoundImg())));
             }
         }
         catch (Exception e) {
@@ -97,24 +103,20 @@ public class MainActivity extends ActionBarActivity
         }
 
         try {
-            if (!ProgramConfig.profile_image_url.equals("")) {
+            if (!SettingsDTO.getAvaterImg().equals("")) {
                 //Toast.makeText(MainActivity.this, "Profile: " + ProgramConfig.profile_image_url, Toast.LENGTH_LONG).show();
-                mNavigationDrawerFragment.setAvater(BitmapFactory.decodeFile(ProgramConfig.profile_image_url));
+                mNavigationDrawerFragment.setAvater(BitmapFactory.decodeFile(SettingsDTO.getAvaterImg()));
             }
         }
         catch (Exception e){
             e.printStackTrace();
         }
 
-        if (ProgramConfig.first_initial) {
-            ProgramConfig.json.remove("first_initial");
-            try {
-                ProgramConfig.json.put("first_initial", false);
-            }
-            catch(Exception e) {
-                e.printStackTrace();
-            }
-            Static.WriteSettings();
+        // 检查是否是第一次初始化
+        if (SettingsDTO.isFirstInit()) {
+            settingDao.setSetting(settingDao.KEY_FIRST_INIT, "false");
+            SettingsDTO.setFirstInit(false);
+
             new android.support.v7.app.AlertDialog.Builder(this)
                     .setCancelable(false)
                     .setTitle("首次运行程序")
@@ -134,8 +136,8 @@ public class MainActivity extends ActionBarActivity
                     .setNeutralButton("不用了", null)
                     .show();
         }
-        else if (ProgramConfig.welcome) {
-            Toast.makeText(this, "欢迎你" + ProgramConfig.display_name, Toast.LENGTH_SHORT).show();
+        else if (SettingsDTO.isWelcome()) {
+            Toast.makeText(this, "欢迎你" + SettingsDTO.getUserName(), Toast.LENGTH_SHORT).show();
         }
 
         refreshList();
@@ -146,7 +148,7 @@ public class MainActivity extends ActionBarActivity
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         int day = (cal.get(Calendar.DAY_OF_WEEK) - 2 + 7) % 7;
-        class_list = dao.getDailyCourse(ProgramConfig.getCurrentWeek(), day);
+        class_list = dao.getDailyCourse(SettingsDTO.getCurrentWeek(), day);
 
         this.setTitle("今日课程(" + class_list.size() + ")");
 
@@ -208,6 +210,8 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 4:
                 intent = new Intent(this, SettingActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP); //设置不要刷新将要跳到的界面
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //它可以关掉所要到的界面中间的activity
                 startActivityForResult(intent, Static.RESULT_CODE_SETTINGS);
                 break;
             case 5:
@@ -288,22 +292,21 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         int state = data.getIntExtra("state", 0);
-        Static.loadConfig();
+        settingDao.loadSettings();
         //Toast.makeText(MainActivity.this, "设置已经更改, STATE="+state, Toast.LENGTH_SHORT).show();
 
         if (Static.getState(state, Static.RETVAL_SETTING_DISPLAY_NAME)){
-            mNavigationDrawerFragment.setName(ProgramConfig.display_name.equals("") ? "未设置" : ProgramConfig.display_name);
-            //Toast.makeText(MainActivity.this, "姓名设置已经更改"+ProgramConfig.display_name, Toast.LENGTH_SHORT).show();
+            mNavigationDrawerFragment.setName(SettingsDTO.getUserName().equals("") ? "未设置" : SettingsDTO.getUserName());
         }
         if (Static.getState(state, Static.RETVAL_SETTING_CHANGE_PROFILE)){
-            if (!ProgramConfig.profile_image_url.equals(""))
-                mNavigationDrawerFragment.setBackground(new BitmapDrawable(BitmapFactory.decodeFile(ProgramConfig.profile_image_url)));
+            if (!SettingsDTO.getAvaterImg().equals(""))
+                mNavigationDrawerFragment.setBackground(new BitmapDrawable(BitmapFactory.decodeFile(SettingsDTO.getAvaterImg())));
             else
                 mNavigationDrawerFragment.setBackground(getResources().getDrawable(R.drawable.profile_maki));
         }
         if (Static.getState(state, Static.RETVAL_SETTING_CHANGE_BACKGROUND)){
-            if (!ProgramConfig.background_image_url.equals(""))
-                mNavigationDrawerFragment.setBackground(new BitmapDrawable(BitmapFactory.decodeFile(ProgramConfig.background_image_url)));
+            if (!SettingsDTO.getRbackgoundImg().equals(""))
+                mNavigationDrawerFragment.setBackground(new BitmapDrawable(BitmapFactory.decodeFile(SettingsDTO.getRbackgoundImg())));
             else
                 mNavigationDrawerFragment.setBackground(getResources().getDrawable(R.drawable.wallpaper));
         }

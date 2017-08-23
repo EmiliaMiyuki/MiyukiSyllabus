@@ -21,8 +21,9 @@ import android.widget.Toast;
 
 import java.io.File;
 
-import ProgramFeatures.ProgramConfig;
-import ProgramFeatures.Static;
+import org.ruoxue.miyukisyllabus.Data.SettingsDAO;
+import org.ruoxue.miyukisyllabus.Data.SettingsDTO;
+import org.ruoxue.miyukisyllabus.Util.Static;
 
 public class SettingActivity extends AppCompatActivity {
     Toolbar mToolbar;
@@ -42,10 +43,7 @@ public class SettingActivity extends AppCompatActivity {
     LinearLayout mItem_notifyCourse;
     Switch       mValue_notifyCourse;
 
-    LinearLayout mItem_customJwcURL;
-    TextView     mValue_customJwcURL;
-
-    LinearLayout mItem_editConfigFile;
+    LinearLayout mItem_resoreDefaults;
 
     LinearLayout mItem_showWelcomeTips;
     Switch       mValue_showWelcomeTips;
@@ -57,12 +55,17 @@ public class SettingActivity extends AppCompatActivity {
     int which_type_of_image_select;
     int state = 0;
 
+    SettingsDAO sdao = new SettingsDAO();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ManagedApplication.getInstance().addActivity(this);
+
         setContentView(R.layout.activity_setting);
 
-        Static.loadConfig();
+        sdao.loadSettings();
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
@@ -77,44 +80,59 @@ public class SettingActivity extends AppCompatActivity {
 
         mItem_currentWeek = (LinearLayout)findViewById(R.id.setting_current_week);
         mValue_currentWeek = (TextView)findViewById(R.id.setting_val_week);
-        mValue_currentWeek.setText(ProgramConfig.open_school_date);
+        mValue_currentWeek.setText(SettingsDTO.getOpenSchoolDate());
 
         mItem_displayName = (LinearLayout)findViewById(R.id.setting_display_name);
         mValue_displayName = (TextView)findViewById(R.id.setting_val_nickname);
-        mValue_displayName.setText(ProgramConfig.display_name);
+        mValue_displayName.setText(SettingsDTO.getUserName());
 
         mItem_profileImage = (LinearLayout)findViewById(R.id.setting_profile_image);
 
         mItem_backgroundImage = (LinearLayout)findViewById(R.id.setting_change_bg);
 
-        mItem_nightMode = (LinearLayout)findViewById(R.id.setting_night_mode);
+        mItem_nightMode = (LinearLayout)findViewById(R.id.setting_theme);
         mValue_nightMode = (TextView)findViewById(R.id.setting_val_night_mode);
-        mValue_nightMode.setText(ProgramConfig.night_mode == 0 ? "亮色主题" : (ProgramConfig.night_mode == 1 ? "暗色主题" : "自动切换"));
+        mValue_nightMode.setText("Not implemented");
 
         mItem_notifyCourse = (LinearLayout)findViewById(R.id.setting_notificate);
         mValue_notifyCourse = (Switch)findViewById(R.id.setting_notification_state);
-        mValue_notifyCourse.setChecked(ProgramConfig.notify_courses);
+        mValue_notifyCourse.setChecked(SettingsDTO.isNotifyCourses());
 
-        mItem_customJwcURL = (LinearLayout)findViewById(R.id.setting_edit_jwc_url);
-        mValue_customJwcURL = (TextView)findViewById(R.id.setting_jwc_url);
-        mValue_customJwcURL.setText(ProgramConfig.jwc_base_url);
-
-        mItem_editConfigFile = (LinearLayout)findViewById(R.id.setting_edit_config);
+        mItem_resoreDefaults = (LinearLayout)findViewById(R.id.setting_restore_defaults);
 
         mItem_showWelcomeTips = (LinearLayout)findViewById(R.id.setting_display_welcome);
         mValue_showWelcomeTips = (Switch)findViewById(R.id.setting_display_welcome_val);
-        mValue_showWelcomeTips.setChecked(ProgramConfig.welcome);
+        mValue_showWelcomeTips.setChecked(SettingsDTO.isWelcome());
 
         mItem_clearCache = (LinearLayout)findViewById(R.id.setting_clear_cache);
 
-        mItem_editConfigFile.setOnClickListener(new View.OnClickListener() {
+        mItem_resoreDefaults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(new File(Static.PATH_CONFIG_FILE)), "application/json");
-                startActivity(intent);
+                //Toast.makeText(SettingActivity.this, "已恢复默认设置，请重新打开程序。", Toast.LENGTH_SHORT).show();
+                //android.os.Process.killProcess(android.os.Process.myPid());
+                new android.app.AlertDialog.Builder(SettingActivity.this)
+                        .setTitle(getResources().getString(R.string.setting_item_restore_defaults))
+                        .setMessage("所有设置都会被删除，是否继续？")
+                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                sdao.dropTable();
+                                new android.app.AlertDialog.Builder(SettingActivity.this)
+                                        .setCancelable(false)
+                                        .setTitle(getResources().getString(R.string.setting_item_restore_defaults))
+                                        .setMessage("已恢复默认设置，请重新打开程序。")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                ManagedApplication.getInstance().exit();
+                                            }
+                                        })
+                                        .show();
+                            }
+                        })
+                        .setNegativeButton("否", null)
+                        .show();
             }
         });
 
@@ -132,14 +150,8 @@ public class SettingActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 String v = value.getYear() + "-" + (value.getMonth()+1) + "-" + value.getDayOfMonth();
                                 try {
-                                    ProgramConfig.open_school_date = v;
-                                    ProgramConfig.json.remove("open_school_date");
-                                    try {
-                                        ProgramConfig.json.put("open_school_date", v);
-                                        Static.WriteSettings();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
+                                    sdao.setSetting(sdao.KEY_OPEN_SCHOOL_DATE, v);
+                                    SettingsDTO.setOpenSchoolDate(v);
                                     mValue_currentWeek.setText(v);
                                     state = Static.changeState(state, Static.RETVAL_SETTING_CURRENT_WEEK);
                                 } catch (Exception e) {
@@ -158,7 +170,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final EditText value = new EditText(SettingActivity.this);
                 value.setHint("输入显示的姓名");
-                value.setText("" + ProgramConfig.display_name);
+                value.setText("" + SettingsDTO.getUserName());
                 new AlertDialog.Builder(SettingActivity.this)
                         .setTitle("显示的姓名")
                         .setView(value)
@@ -166,46 +178,10 @@ public class SettingActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String v = value.getText().toString();
-                                try {
-                                    ProgramConfig.display_name = v;
-                                    ProgramConfig.json.remove("display_name");
-                                    ProgramConfig.json.put("display_name", v);
-                                    Static.WriteSettings();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                state = Static.changeState(state, Static.RETVAL_SETTING_DISPLAY_NAME);
-                                //Toast.makeText(SettingActivity.this, ""+state, Toast.LENGTH_SHORT).show();
+                                sdao.setSetting(sdao.KEY_USER_NAME, v);
+                                SettingsDTO.setUserName(v);
                                 mValue_displayName.setText(v);
-                            }
-                        })
-                        .setNegativeButton("取消", null)
-                        .show();
-            }
-        });
-
-        mItem_customJwcURL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText value = new EditText(SettingActivity.this);
-                value.setHint("自定义教务处地址");
-                value.setText("" + ProgramConfig.jwc_base_url);
-                new AlertDialog.Builder(SettingActivity.this)
-                        .setTitle("输入登入入口地址")
-                        .setView(value)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String v = value.getText().toString();
-                                try {
-                                    ProgramConfig.jwc_base_url = v;
-                                    ProgramConfig.json.remove("jwc_base_url");
-                                    ProgramConfig.json.put("jwc_base_url", v);
-                                    Static.WriteSettings();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                mValue_customJwcURL.setText(v);
+                                state = Static.changeState(state, Static.RETVAL_SETTING_DISPLAY_NAME);
                             }
                         })
                         .setNegativeButton("取消", null)
@@ -219,10 +195,8 @@ public class SettingActivity extends AppCompatActivity {
                 boolean val = !mValue_notifyCourse.isChecked();
                 mValue_notifyCourse.setChecked(val);
                 try {
-                    ProgramConfig.notify_courses = val;
-                    ProgramConfig.json.remove("notify_courses");
-                    ProgramConfig.json.put("notify_courses", val);
-                    Static.WriteSettings();
+                    sdao.setSetting(sdao.KEY_NOTIFY_COURSE, val?"true":"false");
+                    SettingsDTO.setNotifyCourses(val);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -235,10 +209,8 @@ public class SettingActivity extends AppCompatActivity {
                 boolean val = !mValue_showWelcomeTips.isChecked();
                 mValue_showWelcomeTips.setChecked(val);
                 try {
-                    ProgramConfig.welcome = val;
-                    ProgramConfig.json.remove("welcome");
-                    ProgramConfig.json.put("welcome", val);
-                    Static.WriteSettings();
+                    sdao.setSetting(sdao.KEY_SHOW_WELCOME, val?"true":"false");
+                    SettingsDTO.setWelcome(val);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -285,19 +257,9 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(SettingActivity.this)
-                        .setSingleChoiceItems(new String[]{"亮色主题", "暗色主题", "自动切换"}, ProgramConfig.night_mode, new DialogInterface.OnClickListener() {
+                        .setSingleChoiceItems(new String[]{"Not implemented"}, 0, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ProgramConfig.night_mode = which;
-                                ProgramConfig.json.remove("night_mode");
-                                try {
-                                    ProgramConfig.json.put("night_mode", which);
-                                    mValue_nightMode.setText(ProgramConfig.night_mode == 0 ? "亮色主题" : (ProgramConfig.night_mode == 1 ? "暗色主题" : "自动切换"));
-                                    Static.WriteSettings();
-                                }
-                                catch (Exception e) {
-                                    e.printStackTrace();
-                                }
                                 dialog.dismiss();
                             }
                         })
@@ -356,16 +318,14 @@ public class SettingActivity extends AppCompatActivity {
                     try {
                         switch (which_type_of_image_select) {
                             case 1:
-                                ProgramConfig.profile_image_url = tmp_file.getAbsolutePath();
-                                ProgramConfig.json.remove("profile_image_url");
-                                ProgramConfig.json.put("profile_image_url", tmp_file.getAbsolutePath());
-                                Static.WriteSettings();
+                                SettingsDTO.setAvaterImg(tmp_file.getAbsolutePath());
+                                sdao.setSetting(sdao.KEY_AVATER_IMG, tmp_file.getAbsolutePath());
+                                state = Static.changeState(state, Static.RETVAL_SETTING_CHANGE_PROFILE);
                                 break;
                             case 2:
-                                ProgramConfig.background_image_url = tmp_file.getAbsolutePath();
-                                ProgramConfig.json.remove("background_image_url");
-                                ProgramConfig.json.put("background_image_url", tmp_file.getAbsolutePath());
-                                Static.WriteSettings();
+                                SettingsDTO.setRbackgoundImg(tmp_file.getAbsolutePath());
+                                sdao.setSetting(sdao.KEY_BACKGROUND_IMG, tmp_file.getAbsolutePath());
+                                state = Static.changeState(state, Static.RETVAL_SETTING_CHANGE_BACKGROUND);
                                 break;
                         }
                     }
@@ -406,19 +366,16 @@ public class SettingActivity extends AppCompatActivity {
                         try {
                             switch (which_type_of_image_select) {
                                 case 1:
-                                    ProgramConfig.profile_image_url = "";
-                                    ProgramConfig.json.remove("profile_image_url");
-                                    ProgramConfig.json.put("profile_image_url", "");
+                                    SettingsDTO.setAvaterImg("");
+                                    sdao.setSetting(sdao.KEY_AVATER_IMG, "");
                                     state = Static.changeState(state, Static.RETVAL_SETTING_CHANGE_PROFILE);
                                     break;
                                 case 2:
-                                    ProgramConfig.background_image_url = "";
-                                    ProgramConfig.json.remove("background_image_url");
-                                    ProgramConfig.json.put("background_image_url", "");
+                                    SettingsDTO.setRbackgoundImg("");
+                                    sdao.setSetting(sdao.KEY_BACKGROUND_IMG, "");
                                     state = Static.changeState(state, Static.RETVAL_SETTING_CHANGE_BACKGROUND);
                                     break;
                             }
-                            Static.WriteSettings();
                         } catch (Exception e) {
 
                         }

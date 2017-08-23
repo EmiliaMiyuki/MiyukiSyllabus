@@ -1,4 +1,4 @@
-package ProgramFeatures;
+package org.ruoxue.miyukisyllabus.Util;
 
 import android.content.ContentUris;
 import android.content.Context;
@@ -8,9 +8,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-
-import org.json.*;
-
 import java.io.*;
 import java.lang.reflect.Field;
 import java.net.HttpCookie;
@@ -19,7 +16,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import GradeRelated.RequestParamters;
+import org.ruoxue.miyukisyllabus.Network.RequestParamters;
 
 import org.jsoup.*;
 
@@ -37,7 +34,6 @@ public class Static {
 
     // Paths
     public static String PATH_DATA_DIR = "";
-    public static String PATH_CONFIG_FILE = "";
     public static String PATH_FILES_DIR = "";
     public static String PATH_FILE_CHECKCODE = "";
 
@@ -56,6 +52,8 @@ public class Static {
 
     public static final RequestParamters rp = new RequestParamters();
 
+    public static String package_name = "org.ruoxue.miyukisyllabus";
+
     public static void checkResourceDir() {
         File dir = new File(PATH_DATA_DIR);
         if (!dir.exists())
@@ -65,79 +63,6 @@ public class Static {
             dir.mkdirs();
     }
 
-    public static void loadConfig() {
-        loadConfig(PATH_CONFIG_FILE);
-    }
-
-    public static void loadConfig(String file_path) {
-        File f = new File(file_path);
-        try {
-            if (f.exists()) {
-                ProgramConfig.load(file_path);
-            } else {
-                f.createNewFile();
-                createConfigFile(file_path);
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void createConfigFile(String file_path) {
-        JSONObject o = new JSONObject();
-        try {
-            o.put("first_initial", false);
-            o.put("open_school_date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-            o.put("display_name", "Miyuki");
-            o.put("profile_image_url", "");
-            o.put("background_image_url", "");
-            o.put("night_mode", 2);
-            o.put("notify_courses", false);
-            o.put("jwc_base_url", "http://newjwc.tyust.edu.cn/");
-            o.put("saved_user_name", "");
-            o.put("saved_password", "");
-            o.put("welcome", true);
-
-            JSONArray courses = new JSONArray();
-            o.put("courses", courses);
-
-            JSONObject params = new JSONObject();
-            params.put("login_url", "Default2.aspx");
-            params.put("main_url", "xs_main.aspx");
-            o.put("web_params", params);
-
-            try {
-                Writer writer = new OutputStreamWriter(new FileOutputStream(file_path), "UTF-8");
-                BufferedWriter fout = new BufferedWriter(writer);
-                fout.write(o.toString());
-                fout.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        catch(JSONException e){
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void WriteSettings(){
-        WriteConfig(ProgramConfig.json, PATH_CONFIG_FILE);
-    }
-
-    public static void WriteConfig(JSONObject o, String file_path) {
-        try {
-            Writer writer = new OutputStreamWriter(new FileOutputStream(file_path), "UTF-8");
-            BufferedWriter fout = new BufferedWriter(writer);
-            fout.write(o.toString());
-            fout.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // 专为Android4.4设计的从Uri获取文件绝对路径，以前的方法已不好使
     public static String getPathByUri4kitkat(final Context context, final Uri uri) {
         final boolean isKitKat = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
         // DocumentProvider

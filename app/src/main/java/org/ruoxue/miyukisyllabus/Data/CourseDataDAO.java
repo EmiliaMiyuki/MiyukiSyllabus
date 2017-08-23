@@ -1,4 +1,4 @@
-package Data;
+package org.ruoxue.miyukisyllabus.Data;
 
 import android.content.ContentValues;
 import android.database.Cursor;

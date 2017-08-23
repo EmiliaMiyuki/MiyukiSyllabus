@@ -30,8 +30,9 @@ import java.net.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ProgramFeatures.ProgramConfig;
-import ProgramFeatures.Static;
+import org.ruoxue.miyukisyllabus.Data.SettingsDAO;
+import org.ruoxue.miyukisyllabus.Data.SettingsDTO;
+import org.ruoxue.miyukisyllabus.Util.Static;
 
 public class LoginActivity extends AppCompatActivity {
     Toolbar mToolbar;
@@ -42,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText mPassword;
     EditText mVerify;
     CheckBox mRememberPassword;
+
+    SettingsDAO sdao = new SettingsDAO();
 
     final int TOAST_ERROR = 0,
             TOAST_OK = 1,
@@ -105,8 +108,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        if (!ProgramConfig.saved_user_name.equals("") && !ProgramConfig.saved_password.equals("")) {
-            mUsername.setText(ProgramConfig.saved_user_name);
+        if (!SettingsDTO.getJwcUserName().equals("") && !SettingsDTO.getJwcPassword().equals("")) {
+            mUsername.setText(SettingsDTO.getJwcUserName());
             mPassword.setHint(R.string.login_password_rem);
             mRememberPassword.setChecked(true);
             password_saved = true;
@@ -204,38 +207,26 @@ public class LoginActivity extends AppCompatActivity {
         //final String t = "2";
         new Thread() {
             public void run(){
+                String saved_user_name = SettingsDTO.getJwcUserName();
+                String saved_password = SettingsDTO.getJwcPassword();
+
                 String password = mPassword.getText().toString();
                 if (password_saved && password.equals("")) {
-                    password = ProgramConfig.saved_password;
+                    password = saved_password;
                 }
                 if (mRememberPassword.isChecked()) {
-                    if (!(mUsername.getText().toString().equals(ProgramConfig.saved_user_name) && password.equals(ProgramConfig.saved_password))) {
-                        ProgramConfig.saved_user_name = mUsername.getText().toString();
-                        ProgramConfig.saved_password = password;
-                        ProgramConfig.json.remove("saved_password");
-                        ProgramConfig.json.remove("saved_user_name");
-                        try {
-                            ProgramConfig.json.put("saved_password", ProgramConfig.saved_password);
-                            ProgramConfig.json.put("saved_user_name", ProgramConfig.saved_user_name);
-                            Static.WriteSettings();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                    if (!(mUsername.getText().toString().equals(saved_user_name) && password.equals(saved_password))) {
+                        sdao.setSetting(sdao.KEY_JWC_USER_NAME, mUsername.getText().toString());
+                        sdao.setSetting(sdao.KEY_JWC_PASSWORD, password);
+                        SettingsDTO.setJwcUserName(mUsername.getText().toString());
+                        SettingsDTO.setJwcPassword(password);
                     }
                 }
                 else if (password_saved) {
-                    ProgramConfig.saved_user_name = "";
-                    ProgramConfig.saved_password = "";
-                    ProgramConfig.json.remove("saved_password");
-                    ProgramConfig.json.remove("saved_user_name");
-                    try {
-                        ProgramConfig.json.put("saved_password", ProgramConfig.saved_password);
-                        ProgramConfig.json.put("saved_user_name", ProgramConfig.saved_user_name);
-                        Static.WriteSettings();
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    sdao.setSetting(sdao.KEY_JWC_USER_NAME, "");
+                    sdao.setSetting(sdao.KEY_JWC_PASSWORD, "");
+                    SettingsDTO.setJwcUserName("");
+                    SettingsDTO.setJwcPassword("");
                 }
                 login(mUsername.getText().toString(), password, mVerify.getText().toString());
             }

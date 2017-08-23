@@ -1,4 +1,4 @@
-package Data;
+package org.ruoxue.miyukisyllabus.Data;
 
 /**
  * Created by Miyuki on 2017/8/21.

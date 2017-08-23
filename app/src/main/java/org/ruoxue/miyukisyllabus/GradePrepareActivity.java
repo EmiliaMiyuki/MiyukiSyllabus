@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import GradeRelated.RequestParamters;
+import org.ruoxue.miyukisyllabus.Network.RequestParamters;
 
 public class GradePrepareActivity extends AppCompatActivity {
     Toolbar mToolbar;
