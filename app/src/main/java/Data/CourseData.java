@@ -93,6 +93,6 @@ public class CourseData {
         this.endWeek = endWeek;
     }
 
-    public String getDescription() { return "第"+getCourseIndex()+"节，"+getClassroom(); }
+    public String getDescription() { return "第"+(getCourseIndex()+1)+"节，"+getClassroom(); }
 
 }

@@ -138,6 +138,10 @@ public class MainActivity extends ActionBarActivity
             Toast.makeText(this, "欢迎你" + ProgramConfig.display_name, Toast.LENGTH_SHORT).show();
         }
 
+        refreshList();
+    }
+
+    protected void refreshList() {
         // Get today's course
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
@@ -273,7 +277,8 @@ public class MainActivity extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_refresh) {
+            refreshList();
             return true;
         }
 
