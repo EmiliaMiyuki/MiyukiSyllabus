@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
@@ -86,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        this.setTitle("登录教务系统");
+        this.setTitle("");
 
         btnLogin = (Button)findViewById(R.id.login_login);
         mCode = (ImageView)findViewById(R.id.login_verify_image);
@@ -152,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
             System.out.println("获取Cookie...");
             CookieManager manager = new CookieManager();
             CookieHandler.setDefault(manager);
-            Static.saveBinaryFile(Static.PATH_FILE_CHECKCODE, "http://newjwc.tyust.edu.cn/CheckCode.aspx", Static.rp.cookies.toString());
+            m_verfyCodeBitmap = Static.getBitmap("http://newjwc.tyust.edu.cn/CheckCode.aspx", Static.rp.cookies.toString());
             CookieStore cookieJar = manager.getCookieStore();
             Static.rp.cookies = cookieJar.getCookies();
 
@@ -162,6 +163,8 @@ public class LoginActivity extends AppCompatActivity {
             sendMessage(E_GET_VERIFY_CODE_COMPLETE);
         }
     };
+
+    Bitmap m_verfyCodeBitmap = null;
 
     Runnable Thread_getVerifyCodeAndCookie = new Runnable() {
         @Override
@@ -183,7 +186,7 @@ public class LoginActivity extends AppCompatActivity {
                 Static.rp.cookies = cookieJar.getCookies();
 
                 System.out.println("获取验证码...");
-                Static.saveBinaryFile(Static.PATH_FILE_CHECKCODE, "http://newjwc.tyust.edu.cn/CheckCode.aspx", Static.rp.cookies.toString());
+                m_verfyCodeBitmap = Static.getBitmap("http://newjwc.tyust.edu.cn/CheckCode.aspx", Static.rp.cookies.toString());
 
                 for (HttpCookie cookie : Static.rp.cookies) {
                     System.out.println(cookie);
@@ -311,7 +314,7 @@ public class LoginActivity extends AppCompatActivity {
                     Static.rp.loginSuccess = true;
                     break;
                 case E_GET_VERIFY_CODE_COMPLETE:
-                    mCode.setImageBitmap(BitmapFactory.decodeFile(Static.PATH_FILE_CHECKCODE));
+                    mCode.setImageBitmap(m_verfyCodeBitmap);
                     process_dialog.dismiss();
                     break;
                 case TOAST_MSGGET_ERROR:

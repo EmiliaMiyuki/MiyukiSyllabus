@@ -80,6 +80,7 @@ public class MainActivity extends ActionBarActivity
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, Static.PERMISSION_WRITE_EXTERNAL_STORAGE);
         }
         else {
+            Static.gotWriteExtenralPermission = true;
             init();
         }
 
@@ -137,7 +138,15 @@ public class MainActivity extends ActionBarActivity
                     .show();
         }
         else if (SettingsDTO.isWelcome()) {
-            Toast.makeText(this, "欢迎你" + SettingsDTO.getUserName(), Toast.LENGTH_SHORT).show();
+            int hour = new Date().getHours();
+            String greeting = "";
+            if (hour < 5) greeting = "午夜好";
+            else if (hour < 9) greeting = "早安";
+            else if (hour < 12) greeting = "上午好";
+            else if (hour < 13) greeting = "中午好";
+            else if (hour < 18) greeting = "下午好";
+            else greeting = "晚上好";
+            Toast.makeText(this, greeting + "，" + SettingsDTO.getUserName(), Toast.LENGTH_SHORT).show();
         }
 
         refreshList();
@@ -230,20 +239,11 @@ public class MainActivity extends ActionBarActivity
             case Static.PERMISSION_WRITE_EXTERNAL_STORAGE: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //Create directory if dir is not exised
-                    //alert("获得了权限", "已经获得权限")
+                    Static.gotWriteExtenralPermission = true;
                     init();
                 } else {
-
-                    new android.support.v7.app.AlertDialog.Builder(this)
-                            .setCancelable(false)
-                            .setTitle("没有获得读写外部存储权限")
-                            .setMessage("程序请求外部存储权限用于保存设置信息和课程表信息的配置文件，程序没有获得读写外部存储的权限，程序将会退出。请重新打开程序并授权该权限。")
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    System.exit(-2);
-                                }
-                            }).show();
+                    //没有授予权限，程序仍然可以运行，但某些功能被禁用
+                    init();
                 }
                 return;
             }
@@ -282,6 +282,7 @@ public class MainActivity extends ActionBarActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
+            settingDao.loadSettings();
             refreshList();
             return true;
         }
@@ -300,9 +301,9 @@ public class MainActivity extends ActionBarActivity
         }
         if (Static.getState(state, Static.RETVAL_SETTING_CHANGE_PROFILE)){
             if (!SettingsDTO.getAvaterImg().equals(""))
-                mNavigationDrawerFragment.setBackground(new BitmapDrawable(BitmapFactory.decodeFile(SettingsDTO.getAvaterImg())));
+                mNavigationDrawerFragment.setAvater(new BitmapDrawable(BitmapFactory.decodeFile(SettingsDTO.getAvaterImg())).getBitmap());
             else
-                mNavigationDrawerFragment.setBackground(getResources().getDrawable(R.drawable.profile_maki));
+                mNavigationDrawerFragment.setAvater(((BitmapDrawable)getResources().getDrawable(R.drawable.profile_maki)).getBitmap());
         }
         if (Static.getState(state, Static.RETVAL_SETTING_CHANGE_BACKGROUND)){
             if (!SettingsDTO.getRbackgoundImg().equals(""))

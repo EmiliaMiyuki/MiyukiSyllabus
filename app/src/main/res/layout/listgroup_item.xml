@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:clickable="false"
     android:focusable="false"
-    android:background="@drawable/cardview_button_selector"
+    android:background="?android:attr/selectableItemBackground"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingBottom="10dp"
@@ -17,7 +17,7 @@
         android:textColor="#000"
         android:textSize="16sp"
         android:layout_marginBottom="3dp"
-        android:text="当前周数"
+        android:text="Title"
         />
 
     <TextView
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:textColor="#888"
         android:textSize="14sp"
-        android:text="第1周"
+        android:text="Description"
         />
 
 </LinearLayout>

@@ -22,9 +22,41 @@
         <item name="color">@android:color/white</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="ToolBarStyle" parent="">
         <item name="android:elevation">@dimen/toolbar_elevation</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
+
+    <!-- 白色控件-->
+    <style name="Miyuki.WhiteControlsStyle" parent="">
+        <item name="colorAccent">#fff</item>
+        <item name="android:textColorPrimary">#fff</item>
+    </style>
+
+    <style name="Miyuki.Style.CheckBox" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#eee</item>
+        <item name="colorControlActivated">#eee</item>
+        <item name="android:textColor">#eee</item>
+    </style>
+
+    <style name="Miyuki.Style.Textbox" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#eee</item>
+        <item name="colorControlActivated">#eee</item>
+        <item name="android:textColor">#000</item>
+
+    </style>
+
+    <style name="Miyuki.Style.Button" parent="Theme.AppCompat">
+        <item name="colorControlHighlight">@color/myAccentColor</item>
+        <item name="colorControlNormal">#eee</item>
+        <item name="colorControlActivated">#eee</item>
+    </style>
+
+    <style name="Miyuki.Style.Text" parent="Theme.AppCompat">
+        <item name="android:textColor">#eee</item>
+    </style>
+
 </resources>

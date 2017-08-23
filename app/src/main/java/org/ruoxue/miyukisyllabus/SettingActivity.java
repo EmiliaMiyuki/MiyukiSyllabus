@@ -37,7 +37,7 @@ public class SettingActivity extends AppCompatActivity {
 
     LinearLayout mItem_backgroundImage;
 
-    LinearLayout mItem_nightMode;
+    LinearLayout mItem_theme;
     TextView     mValue_nightMode;
 
     LinearLayout mItem_notifyCourse;
@@ -47,6 +47,8 @@ public class SettingActivity extends AppCompatActivity {
 
     LinearLayout mItem_showWelcomeTips;
     Switch       mValue_showWelcomeTips;
+
+    LinearLayout mItem_clearLoginState;
 
     LinearLayout mItem_clearCache;
 
@@ -90,7 +92,7 @@ public class SettingActivity extends AppCompatActivity {
 
         mItem_backgroundImage = (LinearLayout)findViewById(R.id.setting_change_bg);
 
-        mItem_nightMode = (LinearLayout)findViewById(R.id.setting_theme);
+        mItem_theme = (LinearLayout)findViewById(R.id.setting_theme);
         mValue_nightMode = (TextView)findViewById(R.id.setting_val_night_mode);
         mValue_nightMode.setText("Not implemented");
 
@@ -105,6 +107,8 @@ public class SettingActivity extends AppCompatActivity {
         mValue_showWelcomeTips.setChecked(SettingsDTO.isWelcome());
 
         mItem_clearCache = (LinearLayout)findViewById(R.id.setting_clear_cache);
+
+        mItem_clearLoginState = (LinearLayout)findViewById(R.id.setting_reset_login_state);
 
         mItem_resoreDefaults.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,6 +242,10 @@ public class SettingActivity extends AppCompatActivity {
         mItem_clearCache.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!Static.gotWriteExtenralPermission) {
+                    alert_if_no_permission();
+                    return;
+                }
                 new AlertDialog.Builder(SettingActivity.this)
                         .setTitle("清除缓存")
                         .setMessage("所有的缓存图片将会被删除，头像和背景也会恢复为默认。是否确认清除？")
@@ -253,7 +261,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        mItem_nightMode.setOnClickListener(new View.OnClickListener() {
+        mItem_theme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(SettingActivity.this)
@@ -264,6 +272,14 @@ public class SettingActivity extends AppCompatActivity {
                             }
                         })
                         .show();
+            }
+        });
+
+        mItem_clearLoginState.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Static.rp.loginSuccess = false;
+                Toast.makeText(SettingActivity.this, "已清除登录状态", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -339,6 +355,10 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void startSelectPictureDialog() {
+        if (!Static.gotWriteExtenralPermission) {
+            alert_if_no_permission();
+            return;
+        }
         new AlertDialog.Builder(SettingActivity.this)
                 .setTitle("选择图片")
                 .setMessage("你可以选择一个图片或者使用相机拍摄相片作为头像或者背景图片。")
@@ -418,5 +438,12 @@ public class SettingActivity extends AppCompatActivity {
         intent.putExtra("state", state);
         SettingActivity.this.setResult(RESULT_OK, intent);
         finish();
+    }
+
+    void alert_if_no_permission() {
+        new AlertDialog.Builder(SettingActivity.this)
+                .setTitle("没有权限")
+                .setMessage("没有读写外部存储的权限，因此该功能无法使用。若要使用请前往设置，授予读写外部存储的权限。")
+                .setPositiveButton("确定", null).show();
     }
 }

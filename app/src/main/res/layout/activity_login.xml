@@ -2,15 +2,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/drawer"
     android:layout_width="match_parent" android:fitsSystemWindows="true"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
-        <include android:id="@+id/toolbar_actionbar" layout="@layout/toolbar_default"
-            android:layout_width="match_parent" android:layout_height="wrap_content" />
+        android:orientation="vertical"
+        android:background="@color/myPrimaryColor">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/AppTheme.AppBarOverlay" />
 
         <LinearLayout android:id="@+id/main_container" android:layout_width="match_parent"
-            android:clickable="true" android:layout_height="match_parent" android:background="#eee"
+            android:clickable="true" android:layout_height="match_parent" android:background="@color/myPrimaryColor"
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
@@ -22,44 +28,72 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="登录教务系统"
+                        android:theme="@style/Miyuki.Style.Text"
+                        android:textSize="25dp"
+                        android:gravity="center"
+                        android:paddingTop="6dp"
+                        />
+
                     <EditText
                         android:id="@+id/login_user"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:theme="@style/Miyuki.Style.Textbox"
+                        android:paddingTop="43dp"
                         android:hint="@string/login_user"
+                        android:maxLines="1"
                         />
                     <EditText
                         android:id="@+id/login_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:theme="@style/Miyuki.Style.Textbox"
                         android:hint="@string/login_password"
+                        android:paddingTop="15dp"
+                        android:maxLines="1"
                         />
-                    <ImageView
-                        android:id="@+id/login_verify_image"
-                        android:layout_width="108dp"
-                        android:layout_height="41dp"
-                        />
-                    <EditText
-                        android:id="@+id/login_verify"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/login_verify"
-                        />
-                    <CheckBox
-                        android:id="@+id/login_remember_pwd"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/login_remerber_password"/>
+                        android:orientation="horizontal"
+                        android:paddingTop="15dp">
+                        <ImageView
+                            android:id="@+id/login_verify_image"
+                            android:layout_width="108dp"
+                            android:layout_height="41dp"
+                            />
+                        <EditText
+                            android:id="@+id/login_verify"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:theme="@style/Miyuki.Style.Textbox"
+                            android:hint="@string/login_verify"
+                            android:maxLines="1"
+                            />
+                    </LinearLayout>
+
+
                     <Button
                         android:id="@+id/login_login"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:theme="@style/Miyuki.Style.Button"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_marginTop="24dp"
+                        android:textSize="19dp"
                         android:text="@string/login_login"/>
 
-                    <TextView
+                    <CheckBox
+                        android:id="@+id/login_remember_pwd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/login_comment"/>
+                        android:checked="true"
+                        android:text="@string/login_remerber_password"
+                        android:theme="@style/Miyuki.Style.CheckBox" />
 
 
                 </LinearLayout>

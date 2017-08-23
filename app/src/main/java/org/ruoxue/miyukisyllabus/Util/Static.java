@@ -3,6 +3,8 @@ package org.ruoxue.miyukisyllabus.Util;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -24,6 +26,8 @@ import org.jsoup.*;
  * Created by Miyuki on 2016/7/31.
  */
 public class Static {
+    public static boolean gotWriteExtenralPermission = false;
+
     // Permission strings
     public static final int PERMISSION_WRITE_EXTERNAL_STORAGE = 1;
 
@@ -241,6 +245,11 @@ public class Static {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static Bitmap getBitmap(String url, String cookie) {
+        InputStream image = GetPage(url, cookie);
+        return BitmapFactory.decodeStream(image);
     }
 
     public static Connection Connect(String url, RequestParamters rp){
