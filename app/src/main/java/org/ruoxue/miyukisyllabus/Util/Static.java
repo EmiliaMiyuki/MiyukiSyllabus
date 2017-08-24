@@ -21,6 +21,7 @@ import java.util.Date;
 import org.ruoxue.miyukisyllabus.Network.RequestParamters;
 
 import org.jsoup.*;
+import org.ruoxue.miyukisyllabus.R;
 
 /**
  * Created by Miyuki on 2016/7/31.
@@ -273,4 +274,22 @@ public class Static {
             e.printStackTrace();
         }
     }
+
+    public static final String THEME_NAME_PINK = "粉红色 (Pink)", THEME_NAME_PURPLE = "紫色 (Purple)", THEME_NAME_BLUE="蓝色 (Blue)", THEME_NAME_BLACK = "黑色 (Black)";
+
+    public static String[] getThemeList() {
+        return new String[] { THEME_NAME_PINK, THEME_NAME_PURPLE, THEME_NAME_BLUE, THEME_NAME_BLACK };
+    }
+
+    public static int getThemeIdByThemeName(String name) {
+        if (name.equals(THEME_NAME_BLUE)) return R.style.AppTheme_Blue;
+        if (name.equals(THEME_NAME_PINK)) return R.style.AppTheme;
+        if (name.equals(THEME_NAME_PURPLE)) return R.style.AppTheme_Purple;
+        if (name.equals(THEME_NAME_BLACK)) return R.style.AppTheme_Black;
+        else return R.style.AppTheme;
+    }
+
+    public static boolean themeChanged = false;
+
+
 }

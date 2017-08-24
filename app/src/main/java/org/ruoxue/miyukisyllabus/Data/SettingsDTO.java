@@ -1,5 +1,7 @@
 package org.ruoxue.miyukisyllabus.Data;
 
+import org.ruoxue.miyukisyllabus.Util.Static;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,7 +14,7 @@ public class SettingsDTO {
     static String  userName;
     static String  avaterImg;
     static String  rbackgoundImg;
-    static String  theme;
+    static String  theme = "";
     static boolean notifyCourses;
     static String  jwcUserName;
     static String  jwcPassword;

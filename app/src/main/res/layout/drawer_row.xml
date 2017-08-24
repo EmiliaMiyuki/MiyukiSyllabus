@@ -5,5 +5,5 @@
         android:layout_height="match_parent"
         android:background="?android:attr/selectableItemBackground" android:drawablePadding="16dp"
         android:textSize="14sp" android:gravity="center_vertical"
-        android:textColor="@color/myTextPrimaryColor" />
+        android:textColor="?android:textColorPrimary" />
 </LinearLayout>

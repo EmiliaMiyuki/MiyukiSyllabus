@@ -8,13 +8,16 @@
         http://www.google.com/design/spec/style/color.html#color-ui-color-palette
     -->
 
-    <color name="myPrimaryColor">#2196F3</color>
-    <color name="myPrimaryDarkColor">#1976D2</color>
-    <color name="myAccentColor">#FF4081</color>
-    <color name="myDrawerBackground">#FFF</color>
+    <!--color name="myPrimaryColor">#FF6699</color>
+    <color name="myPrimaryDarkColor">#B3476B</color>
+    <color name="myAccentColor">#FF4081</color -->
+
     <color name="myWindowBackground">#FFF</color>
     <color name="myTextPrimaryColor">#212121</color>
     <color name="myNavigationColor">#000</color>
+
+
+    <color name="myDrawerBackground">#FFF</color>
 
     <color name="titleText">#000099</color>
     <color name="subTitleText">#888</color>

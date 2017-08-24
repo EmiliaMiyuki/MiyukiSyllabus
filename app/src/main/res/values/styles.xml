@@ -1,11 +1,48 @@
 <resources>
-
     <!-- Base application theme. -->
+    <style name="AppTheme.Blue" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#2196F3</item>
+        <item name="colorPrimaryDark">#1976D2</item>
+        <item name="android:colorPrimary">#2196F3</item>
+        <item name="android:colorPrimaryDark">#1976D2</item>
+        <item name="android:colorAccent">#2196F3</item>
+        <item name="android:textColorPrimary">@color/myTextPrimaryColor</item>
+        <item name="android:navigationBarColor">@color/myNavigationColor</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <item name="android:windowBackground">@color/myWindowBackground</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+    <style name="AppTheme.Purple" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#800080</item>
+        <item name="colorPrimaryDark">#803366</item>
+        <item name="android:colorPrimary">#800080</item>
+        <item name="android:colorPrimaryDark">#803366</item>
+        <item name="android:colorAccent">#800080</item>
+        <item name="android:textColorPrimary">@color/myTextPrimaryColor</item>
+        <item name="android:navigationBarColor">@color/myNavigationColor</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <item name="android:windowBackground">@color/myWindowBackground</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/myPrimaryColor</item>
-        <item name="colorPrimaryDark">@color/myPrimaryDarkColor</item>
-        <item name="colorAccent">@color/myAccentColor</item>
+        <item name="android:colorPrimary">#ff6699</item>
+        <item name="android:colorPrimaryDark">#B3476B</item>
+        <item name="colorPrimary">#ff6699</item>
+        <item name="colorPrimaryDark">#B3476B</item>
+        <item name="android:colorAccent">#FF6699</item>
         <item name="android:textColorPrimary">@color/myTextPrimaryColor</item>
         <item name="android:navigationBarColor">@color/myNavigationColor</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
@@ -23,6 +60,7 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ToolBarStyle" parent="">
         <item name="android:elevation">@dimen/toolbar_elevation</item>
@@ -50,7 +88,7 @@
     </style>
 
     <style name="Miyuki.Style.Button" parent="Theme.AppCompat">
-        <item name="colorControlHighlight">@color/myAccentColor</item>
+        <item name="colorControlHighlight">?attr/colorAccent</item>
         <item name="colorControlNormal">#eee</item>
         <item name="colorControlActivated">#eee</item>
     </style>

@@ -9,23 +9,27 @@
     app:cardCornerRadius="3dp"
     app:cardUseCompatPadding="true"
     app:contentPadding="10dp"
-    app:elevation="0dp">
+    app:elevation="0dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    >
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     >
     <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="18sp"
-        android:textColor="@color/titleText"
+        android:textColor="#111"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:paddingTop="10dp"
         android:paddingBottom="5dp"
-        android:text="大学英语（三）"
+        android:text="Course Name"
         />
 
     <TextView
@@ -38,14 +42,14 @@
         android:paddingRight="12dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:text="周四第3,4节{第1-16周}\n王婷\n16-306"
+        android:text="Description"
         />
 
     <Button
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="28dp"
-        android:textColor="@color/myPrimaryColor"
+        android:textColor="?attr/colorPrimary"
         android:background="?android:attr/selectableItemBackground"
         android:layout_marginTop="16dp"
         android:text="详细"

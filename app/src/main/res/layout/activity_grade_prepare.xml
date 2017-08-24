@@ -28,7 +28,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/myPrimaryColor"
+                        android:textColor="?attr/colorPrimaryDark"
                         android:textSize="14sp"
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp"
@@ -42,7 +42,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/myPrimaryColor"
+                        android:textColor="?attr/colorPrimaryDark"
                         android:textSize="14sp"
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp"

@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/myPrimaryColor">
+        android:background="?attr/colorPrimary">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_actionbar"
@@ -16,7 +16,7 @@
             android:theme="@style/AppTheme.AppBarOverlay" />
 
         <LinearLayout android:id="@+id/main_container" android:layout_width="match_parent"
-            android:clickable="true" android:layout_height="match_parent" android:background="@color/myPrimaryColor"
+            android:clickable="true" android:layout_height="match_parent" android:background="?attr/colorPrimary"
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">

@@ -4,13 +4,17 @@
     android:layout_width="match_parent" android:fitsSystemWindows="true"
     android:layout_height="match_parent">
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?attr/colorPrimary">
 
-        <include android:id="@+id/toolbar_actionbar" layout="@layout/toolbar_default"
-            android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/AppTheme.AppBarOverlay" />
 
         <LinearLayout android:id="@+id/container" android:layout_width="match_parent"
-            android:clickable="true" android:layout_height="match_parent" android:background="#eee">
+            android:clickable="true" android:layout_height="match_parent">
             <ListView
                 android:id="@+id/list_daily_course"
                 android:layout_width="match_parent"
@@ -24,17 +28,17 @@
         </LinearLayout>
     </LinearLayout>
     <!-- android:layout_marginTop="?android:attr/actionBarSize"-->
-    <org.ruoxue.miyukisyllabus.ScrimInsetsFrameLayout
+    <org.ruoxue.miyukisyllabus.UIComponents.ScrimInsetsFrameLayout
         android:id="@+id/scrimInsetsFrameLayout"
         android:layout_width="@dimen/navigation_drawer_width" android:layout_height="wrap_content"
         android:fitsSystemWindows="true" android:layout_gravity="start" app:insetForeground="#4000"
         android:elevation="10dp">
         <fragment android:id="@+id/fragment_drawer"
-            android:name="org.ruoxue.miyukisyllabus.NavigationDrawerFragment"
+            android:name="org.ruoxue.miyukisyllabus.UIComponents.NavigationDrawerFragment"
             android:layout_width="@dimen/navigation_drawer_width"
             android:layout_height="match_parent" android:fitsSystemWindows="true"
             app:layout="@layout/fragment_navigation_drawer" />
-    </org.ruoxue.miyukisyllabus.ScrimInsetsFrameLayout>
+    </org.ruoxue.miyukisyllabus.UIComponents.ScrimInsetsFrameLayout>
 
 
 </android.support.v4.widget.DrawerLayout>

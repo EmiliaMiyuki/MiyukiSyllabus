@@ -4,8 +4,11 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.ruoxue.miyukisyllabus.Util.Static;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Stack;
 
 /**
  * Created by Miyuki on 2017/8/23.
@@ -82,7 +85,7 @@ public class SettingsDAO {
         insert(KEY_USER_NAME, "燕羽若雪");
         insert(KEY_AVATER_IMG, "");
         insert(KEY_BACKGROUND_IMG, "");
-        insert(KEY_THEME, "blue");
+        insert(KEY_THEME, Static.THEME_NAME_PINK);
         insert(KEY_NOTIFY_COURSE, "false");
         insert(KEY_JWC_PASSWORD, "");
         insert(KEY_JWC_USER_NAME, "");
