@@ -1,6 +1,7 @@
 package org.ruoxue.miyukisyllabus.Data;
 
 import org.ruoxue.miyukisyllabus.Util.Static;
+import org.ruoxue.miyukisyllabus.Util.WeekCount;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -112,7 +113,7 @@ public class SettingsDTO {
 
     public static int getCurrentWeek() {
         try {
-            return 1 + (int)( new Date().getTime() -  new SimpleDateFormat("yyyy-MM-dd").parse(getOpenSchoolDate()).getTime())/3600/24/7/1000 ;
+            return WeekCount.timeBettwen(new SimpleDateFormat("yyyy-MM-dd").format(new Date()), getOpenSchoolDate(), WeekCount.WEEK) + 1;
         }
         catch (Exception e) {
             return 1;
