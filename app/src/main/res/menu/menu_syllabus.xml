@@ -2,9 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="org.ruoxue.miyukisyllabus.Activities.SyllabusActivity">
-    <item android:id="@+id/action_choose_week" android:title="@string/syllabs_action_choose_week"
-        android:orderInCategory="100" app:showAsAction="never" />
+
     <item android:id="@+id/action_clear_data" android:title="@string/syllabs_action_clear_data"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_choose_week" android:title="@string/syllabs_action_choose_week"
+        android:icon="@drawable/ic_choose_week" app:showAsAction="ifRoom"/>
 
 </menu>

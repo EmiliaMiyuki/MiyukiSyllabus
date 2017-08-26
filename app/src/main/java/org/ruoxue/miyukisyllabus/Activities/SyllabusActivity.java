@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -302,23 +303,18 @@ public class SyllabusActivity extends AppCompatActivityWithSettings {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_choose_week) {
-            final EditText value = new EditText(SyllabusActivity.this);
-            value.setHint("周数");
-            value.setText("" + SettingsDTO.getCurrentWeek());
+            final NumberPicker value = new NumberPicker(SyllabusActivity.this);
+            value.setMinValue(1);
+            value.setMaxValue(30);
+            value.setValue(SettingsDTO.getCurrentWeek());
             new android.app.AlertDialog.Builder(SyllabusActivity.this)
-                    .setTitle("输入要查看的周数")
+                    .setTitle("选择要查看的周数")
                     .setView(value)
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            try {
-                                int week = Integer.parseInt(value.getText().toString());
-                                if (week <= 0) throw new Exception();
-                                updateCourseList(week);
-                            }
-                            catch (Exception e) {
-                                Toast.makeText(SyllabusActivity.this, "请输入一个正整数。", Toast.LENGTH_SHORT).show();
-                            }
+                            int week = value.getValue();
+                            updateCourseList(week);
                         }
                     })
                     .setNegativeButton("取消", null)

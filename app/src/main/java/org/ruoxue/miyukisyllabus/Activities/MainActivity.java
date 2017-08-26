@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -42,11 +43,12 @@ public class MainActivity extends AppCompatActivityWithSettings
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
+
+    // UI Components
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private Toolbar mToolbar;
-
-    // UI - 课程表列表
     private ListView list_daily_course;
+    private TextView m_note_no_class;
 
     // 数据
     private CourseDataDAO dao = new CourseDataDAO();
@@ -70,7 +72,6 @@ public class MainActivity extends AppCompatActivityWithSettings
 
         Static.PATH_DATA_DIR = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Android/data/"+this.getPackageName();
         Static.PATH_FILES_DIR = Static.PATH_DATA_DIR + "/files/";
-        Static.PATH_FILE_CHECKCODE = Static.PATH_DATA_DIR + "/files/checkCode.gif";
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.fragment_drawer);
@@ -78,6 +79,8 @@ public class MainActivity extends AppCompatActivityWithSettings
         // Set up the drawer.
         mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
         // populate the navigation drawer
+
+        m_note_no_class = (TextView) findViewById(R.id.note_no_class);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             //Apply for WRITE_EXTERNAL_STORAGE permission
@@ -164,6 +167,9 @@ public class MainActivity extends AppCompatActivityWithSettings
         class_list = dao.getDailyCourse(SettingsDTO.getCurrentWeek(), day);
 
         this.setTitle("今日课程(" + class_list.size() + ")");
+
+        if (class_list.size() == 0)
+            m_note_no_class.setVisibility(View.VISIBLE);
 
         // 初始化list
         list_daily_course = (ListView)findViewById(R.id.list_daily_course);

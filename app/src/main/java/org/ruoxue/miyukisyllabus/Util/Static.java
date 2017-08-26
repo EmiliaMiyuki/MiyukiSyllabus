@@ -40,7 +40,6 @@ public class Static {
     // Paths
     public static String PATH_DATA_DIR = "";
     public static String PATH_FILES_DIR = "";
-    public static String PATH_FILE_CHECKCODE = "";
 
     // MainActivity return values
     public static final int RETVAL_SETTING_CURRENT_WEEK = 0x0001;

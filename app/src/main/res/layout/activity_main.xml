@@ -14,7 +14,19 @@
             android:theme="@style/AppTheme.AppBarOverlay" />
 
         <LinearLayout android:id="@+id/container" android:layout_width="match_parent"
-            android:clickable="true" android:layout_height="match_parent">
+            android:clickable="true" android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/note_no_class"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="今天没有课程哦。"
+                android:textColor="#eee"
+                android:textSize="18dp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:paddingTop="80dp"
+                android:visibility="invisible"/>
             <ListView
                 android:id="@+id/list_daily_course"
                 android:layout_width="match_parent"
@@ -24,6 +36,7 @@
                 android:layout_marginRight="8dp"
                 android:scrollbars="none"
                 >
+
             </ListView>
         </LinearLayout>
     </LinearLayout>
