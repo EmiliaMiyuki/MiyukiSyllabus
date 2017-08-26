@@ -39,8 +39,10 @@
     <string name="setting_item_change_profile_image_desc">更换用户名片上的头像</string>
     <string name="setting_item_theme">主题</string>
     <string name="setting_item_night_mode_desc">使用暗色调主题</string>
-    <string name="setting_item_change_bg">更换背景</string>
+    <string name="setting_item_change_bg">更换名片背景</string>
     <string name="setting_item_change_bg_desc">更换用户名片上方的背景图片</string>
+    <string name="setting_item_change_syllabus_bg">更换课程表背景</string>
+    <string name="setting_item_change_syllabus_bg_desc">更换课程表界面的背景图片</string>
 
     <string name="setting_item_notificate_course">提示每日课程</string>
     <string name="setting_item_notificate_course_desc">设置是否在通知栏发送每日课程的通知</string>

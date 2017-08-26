@@ -20,7 +20,7 @@ public class SettingsDAO {
     // Constants
     public final String KEY_OPEN_SCHOOL_DATE = "OPEN_SCHOOL_DATE", KEY_FIRST_INIT = "FIRS_INIT", KEY_USER_NAME = "USER_NAME", KEY_AVATER_IMG = "AVATER_IMG",
             KEY_BACKGROUND_IMG = "BACKGROUND_IMG", KEY_THEME = "THEME", KEY_NOTIFY_COURSE = "NOTIFY_COURSE", KEY_JWC_USER_NAME = "JWC_USER_NAME",
-            KEY_JWC_PASSWORD = "JWC_PASSWORD", KEY_SHOW_WELCOME = "SHOW_WELCOME";
+            KEY_JWC_PASSWORD = "JWC_PASSWORD", KEY_SHOW_WELCOME = "SHOW_WELCOME", KEY_SYLLABUS_IMG = "SYLLABUS_IMG";
 
     public final String TABLE_NAME = "settings";
     public final String COLUMN_KEY = "key";
@@ -90,6 +90,7 @@ public class SettingsDAO {
         insert(KEY_JWC_PASSWORD, "");
         insert(KEY_JWC_USER_NAME, "");
         insert(KEY_SHOW_WELCOME, "");
+        insert(KEY_SYLLABUS_IMG, "");
     }
 
     public void loadSettings() {
@@ -104,6 +105,7 @@ public class SettingsDAO {
             SettingsDTO.setTheme(getSetting(KEY_THEME));
             SettingsDTO.setUserName(getSetting(KEY_USER_NAME));
             SettingsDTO.setWelcome(getSettingBoolean(KEY_SHOW_WELCOME));
+            SettingsDTO.setSyllabusBackgroundImg(getSetting(KEY_SYLLABUS_IMG));
         }
         catch (Exception e) {
             e.printStackTrace();

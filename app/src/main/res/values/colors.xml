@@ -22,11 +22,8 @@
     <color name="titleText">#000099</color>
     <color name="subTitleText">#888</color>
 
-    <color name="sy_title">#33FFCC44</color>
-    <color name="sy_class_1">#99009944</color>
-    <color name="sy_class_2">#99333344</color>
-    <color name="sy_class_3">#CC336644</color>
-    <color name="sy_class_4">#CC00CC44</color>
+    <color name="sy_title">@android:drawable/screen_background_light_transparent</color>
+    <color name="sy_class">#99009944</color>
     <color name="sy_noclass">#cccccc44</color>
 
     <color name="sy_text_class">#eee</color>

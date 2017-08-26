@@ -2,7 +2,11 @@ package org.ruoxue.miyukisyllabus.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.annotation.ColorInt;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,6 +37,7 @@ import org.ruoxue.miyukisyllabus.Util.Static;
 public class SyllabusActivity extends AppCompatActivityWithSettings {
     Toolbar mToolbar;
     TextView[] classes = new TextView[25];
+    LinearLayout mSyllabusWindow;
 
     CourseDataDAO dao = new CourseDataDAO();
     @Override
@@ -76,6 +82,18 @@ public class SyllabusActivity extends AppCompatActivityWithSettings {
         classes[23] = (TextView)findViewById(R.id.sy54);
         classes[24] = (TextView)findViewById(R.id.sy55);
 
+        if (!SettingsDTO.getSyllabusBackgroundImg().equals("")) {
+            try {
+                mSyllabusWindow = (LinearLayout) findViewById(R.id.syllabus_window);
+                mSyllabusWindow.setBackground(new BitmapDrawable(BitmapFactory.decodeFile(SettingsDTO.getSyllabusBackgroundImg())));
+                mToolbar.getBackground().setAlpha(183);
+            }
+            catch (Exception e) {
+                Toast.makeText(this, "Can not load file: " + SettingsDTO.getSyllabusBackgroundImg(), Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
+
         updateCourseList();
     }
 
@@ -90,6 +108,12 @@ public class SyllabusActivity extends AppCompatActivityWithSettings {
         boolean filled[] = new boolean[25];
         for (int i=0; i<25; i++) filled[i] = false;
 
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
+        @ColorInt int background_color = typedValue.data;
+
+        int noClassBlkTranparency = SettingsDTO.getSyllabusBackgroundImg().equals("")?180:0;
+
         for (final CourseData data : lst) {
             int i = (data.getWeekday()) + data.getCourseIndex() *5;
 
@@ -97,7 +121,9 @@ public class SyllabusActivity extends AppCompatActivityWithSettings {
 
             filled[i] = true;
 
-            classes[i].setBackgroundColor(genRandColor());
+            classes[i].setBackgroundColor(background_color);
+            classes[i].getBackground().setAlpha(230);
+            classes[i].setClickable(true);
             classes[i].setTextColor(getResources().getColor(R.color.sy_text_class));
             classes[i].setText(data.getName() + "\n" + data.getClassroom());
             classes[i].setGravity(Gravity.CENTER);
@@ -203,7 +229,8 @@ public class SyllabusActivity extends AppCompatActivityWithSettings {
             final int index = i;
             final CourseData data = new CourseData();
             classes[i].setText("");
-            classes[i].setBackgroundColor(Color.TRANSPARENT);
+            classes[i].setBackgroundColor(Color.WHITE);
+            classes[i].getBackground().setAlpha(noClassBlkTranparency);
             classes[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -280,11 +307,6 @@ public class SyllabusActivity extends AppCompatActivityWithSettings {
             });
         }
 
-    }
-
-    protected int genRandColor() {
-        System.out.println((int)(Math.random()*4));
-        return getResources().getColor(new int[] { R.color.sy_class_1, R.color.sy_class_2, R.color.sy_class_3, R.color.sy_class_4 }[(int)(Math.random()*4)]);
     }
 
     @Override

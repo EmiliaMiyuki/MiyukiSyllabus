@@ -20,6 +20,15 @@ public class SettingsDTO {
     static String  jwcPassword;
     static String  openSchoolDate;
     static boolean  welcome;
+    static String syllabusBackgroundImg = "";
+
+    public static String getSyllabusBackgroundImg() {
+        return syllabusBackgroundImg;
+    }
+
+    public static void setSyllabusBackgroundImg(String syllabusBackgroundImg) {
+        SettingsDTO.syllabusBackgroundImg = syllabusBackgroundImg;
+    }
 
     public static boolean isFirstInit() {
         return firstInit;

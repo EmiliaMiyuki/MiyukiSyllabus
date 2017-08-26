@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -38,6 +39,8 @@ public class SettingActivity extends AppCompatActivityWithSettings {
     LinearLayout mItem_profileImage;
 
     LinearLayout mItem_backgroundImage;
+
+    LinearLayout mItem_changeSyllabusBg;
 
     LinearLayout mItem_theme;
     TextView mValue_theme;
@@ -111,6 +114,8 @@ public class SettingActivity extends AppCompatActivityWithSettings {
         mItem_clearCache = (LinearLayout)findViewById(R.id.setting_clear_cache);
 
         mItem_clearLoginState = (LinearLayout)findViewById(R.id.setting_reset_login_state);
+
+        mItem_changeSyllabusBg = (LinearLayout)findViewById(R.id.setting_change_bg_syllabus);
 
         mItem_resoreDefaults.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,6 +246,14 @@ public class SettingActivity extends AppCompatActivityWithSettings {
             }
         });
 
+        mItem_changeSyllabusBg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                which_type_of_image_select = 3;
+                startSelectPictureDialog();
+            }
+        });
+
         mItem_clearCache.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -365,6 +378,10 @@ public class SettingActivity extends AppCompatActivityWithSettings {
                                 sdao.setSetting(sdao.KEY_BACKGROUND_IMG, tmp_file.getAbsolutePath());
                                 state = Static.changeState(state, Static.RETVAL_SETTING_CHANGE_BACKGROUND);
                                 break;
+                            case 3:
+                                SettingsDTO.setSyllabusBackgroundImg(tmp_file.getAbsolutePath());
+                                sdao.setSetting(sdao.KEY_SYLLABUS_IMG, tmp_file.getAbsolutePath());
+                                break;
                         }
                     }
                     catch (Exception e) {
@@ -417,6 +434,10 @@ public class SettingActivity extends AppCompatActivityWithSettings {
                                     sdao.setSetting(sdao.KEY_BACKGROUND_IMG, "");
                                     state = Static.changeState(state, Static.RETVAL_SETTING_CHANGE_BACKGROUND);
                                     break;
+                                case 3:
+                                    SettingsDTO.setSyllabusBackgroundImg("");
+                                    sdao.setSetting(sdao.KEY_SYLLABUS_IMG, "");
+                                    break;
                             }
                         } catch (Exception e) {
 
@@ -436,6 +457,10 @@ public class SettingActivity extends AppCompatActivityWithSettings {
                 break;
             case 2:
                 startPhotoZoom(uri, to, 1.59, 1, 479, 301);
+                break;
+            case 3:
+                View vw = getWindow().getDecorView();
+                startPhotoZoom(uri, to, 1, ((double)vw.getHeight()) / vw.getWidth(), vw.getWidth(), vw.getHeight());
                 break;
         }
     }
