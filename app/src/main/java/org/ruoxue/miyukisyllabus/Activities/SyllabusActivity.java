@@ -40,9 +40,12 @@ public class SyllabusActivity extends AppCompatActivityWithSettings {
     LinearLayout mSyllabusWindow;
 
     CourseDataDAO dao = new CourseDataDAO();
+
+    int current_shown_week;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        current_shown_week = SettingsDTO.getCurrentWeek();
         setContentView(R.layout.activity_syllabus);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
@@ -103,7 +106,7 @@ public class SyllabusActivity extends AppCompatActivityWithSettings {
 
     void updateCourseList(int week) {
         List<CourseData> lst = dao.getWeeklyCourse(week);
-        SyllabusActivity.this.setTitle("课程表 (第"+week+"周"+ (SettingsDTO.getCurrentWeek() != week ? "  非当前周":"") + ")");
+        SyllabusActivity.this.setTitle("第"+week+"周"+ (SettingsDTO.getCurrentWeek() != week ? "/非本周":"") + "");
 
         boolean filled[] = new boolean[25];
         for (int i=0; i<25; i++) filled[i] = false;
@@ -328,7 +331,7 @@ public class SyllabusActivity extends AppCompatActivityWithSettings {
             final NumberPicker value = new NumberPicker(SyllabusActivity.this);
             value.setMinValue(1);
             value.setMaxValue(30);
-            value.setValue(SettingsDTO.getCurrentWeek());
+            value.setValue(current_shown_week);
             new android.app.AlertDialog.Builder(SyllabusActivity.this)
                     .setTitle("选择要查看的周数")
                     .setView(value)
@@ -336,26 +339,39 @@ public class SyllabusActivity extends AppCompatActivityWithSettings {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             int week = value.getValue();
+                            current_shown_week = week;
                             updateCourseList(week);
                         }
                     })
                     .setNegativeButton("取消", null)
+                    .setNeutralButton("返回本周", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            current_shown_week = SettingsDTO.getCurrentWeek();
+                            updateCourseList(current_shown_week);
+                        }
+                    })
                     .show();
             return true;
         }
-        else if (id == R.id.action_clear_data) {
-            new android.app.AlertDialog.Builder(SyllabusActivity.this)
-                    .setTitle(getResources().getString(R.string.syllabs_action_clear_data))
-                    .setMessage("所有课程表信息都会被删除，是否继续？")
-                    .setPositiveButton("是", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dao.clearData();
-                            updateCourseList();
-                        }
-                    })
-                    .setNegativeButton("否", null)
-                    .show();
+        else if(id == R.id.action_last_week) {
+            if (current_shown_week - 1 < 1) {
+                Toast.makeText(this, "已经是第一周", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            current_shown_week--;
+            updateCourseList(current_shown_week);
+            return true;
+        }
+        else if (id == R.id.action_next_week) {
+            if (current_shown_week + 1 > 30) {
+                Toast.makeText(this, "已经是最大周数", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            current_shown_week++;
+            updateCourseList(current_shown_week);
             return true;
         }
 

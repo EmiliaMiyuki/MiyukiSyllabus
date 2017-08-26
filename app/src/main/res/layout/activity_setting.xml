@@ -441,6 +441,36 @@
 
                     </LinearLayout>
 
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/setting_delete_course"
+                        android:orientation="vertical" android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000"
+                            android:textSize="16sp"
+                            android:layout_marginBottom="3dp"
+                            android:text="@string/syllabs_action_clear_data"
+                            />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#888"
+                            android:textSize="14sp"
+                            android:text="@string/syllabs_action_clear_data"
+                            />
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
 

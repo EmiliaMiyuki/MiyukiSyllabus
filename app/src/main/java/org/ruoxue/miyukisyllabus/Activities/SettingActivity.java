@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import org.ruoxue.miyukisyllabus.Data.CourseDataDAO;
 import org.ruoxue.miyukisyllabus.Data.SettingsDAO;
 import org.ruoxue.miyukisyllabus.Data.SettingsDTO;
 import org.ruoxue.miyukisyllabus.UIComponents.AppCompatActivityWithSettings;
@@ -56,6 +57,8 @@ public class SettingActivity extends AppCompatActivityWithSettings {
     LinearLayout mItem_clearLoginState;
 
     LinearLayout mItem_clearCache;
+
+    LinearLayout mItem_clearCourses;
 
     File tmp_file;
 
@@ -116,6 +119,8 @@ public class SettingActivity extends AppCompatActivityWithSettings {
         mItem_clearLoginState = (LinearLayout)findViewById(R.id.setting_reset_login_state);
 
         mItem_changeSyllabusBg = (LinearLayout)findViewById(R.id.setting_change_bg_syllabus);
+
+        mItem_clearCourses = (LinearLayout)findViewById(R.id.setting_delete_course);
 
         mItem_resoreDefaults.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,6 +320,24 @@ public class SettingActivity extends AppCompatActivityWithSettings {
             public void onClick(View v) {
                 Static.rp.loginSuccess = false;
                 Toast.makeText(SettingActivity.this, "已清除登录状态", Toast.LENGTH_SHORT).show();
+            }
+        });
+        
+        mItem_clearCourses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    new AlertDialog.Builder(SettingActivity.this)
+                            .setTitle(getResources().getString(R.string.syllabs_action_clear_data))
+                            .setMessage("所有课程表信息都会被删除，是否继续？")
+                            .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    new CourseDataDAO().clearData();
+                                    Toast.makeText(SettingActivity.this, "已清除所有课程数据。", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("否", null)
+                            .show();
             }
         });
     }
