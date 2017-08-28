@@ -23,7 +23,7 @@ public class SettingsDTO {
     static boolean  welcome;
     static String syllabusBackgroundImg = "";
 
-    static SettingsDAO dao = new SettingsDAO();
+    public static final SettingsDAO dao = new SettingsDAO();
 
     public static String getSyllabusBackgroundImg() {
         return syllabusBackgroundImg;
@@ -58,6 +58,7 @@ public class SettingsDTO {
 
     public static void setAvaterImg(String avaterImg) {
         SettingsDTO.avaterImg = avaterImg;
+        dao.setSetting(dao.KEY_AVATER_IMG, avaterImg);
     }
 
     public static String getRbackgoundImg() {
@@ -66,6 +67,7 @@ public class SettingsDTO {
 
     public static void setRbackgoundImg(String rbackgoundImg) {
         SettingsDTO.rbackgoundImg = rbackgoundImg;
+        dao.setSetting(dao.KEY_BACKGROUND_IMG, rbackgoundImg);
     }
 
     public static String getTheme() {
@@ -74,6 +76,7 @@ public class SettingsDTO {
 
     public static void setTheme(String theme) {
         SettingsDTO.theme = theme;
+        dao.setSetting(dao.KEY_THEME, theme);
     }
 
     public static boolean isNotifyCourses() {
@@ -82,6 +85,7 @@ public class SettingsDTO {
 
     public static void setNotifyCourses(boolean notifyCourses) {
         SettingsDTO.notifyCourses = notifyCourses;
+        dao.setSetting(dao.KEY_NOTIFY_COURSE, notifyCourses?"true":"false");
     }
 
     public static String getJwcUserName() {
@@ -90,6 +94,7 @@ public class SettingsDTO {
 
     public static void setJwcUserName(String jwcUserName) {
         SettingsDTO.jwcUserName = jwcUserName;
+        dao.setSetting(dao.KEY_JWC_USER_NAME, jwcUserName);
     }
 
     public static String getJwcPassword() {
@@ -98,6 +103,7 @@ public class SettingsDTO {
 
     public static void setJwcPassword(String jwcPassword) {
         SettingsDTO.jwcPassword = jwcPassword;
+        dao.setSetting(dao.KEY_JWC_PASSWORD, jwcPassword);
     }
 
     public static String getOpenSchoolDate() {
@@ -106,6 +112,7 @@ public class SettingsDTO {
 
     public static void setOpenSchoolDate(String openSchoolDate) {
         SettingsDTO.openSchoolDate = openSchoolDate;
+        dao.setSetting(dao.KEY_OPEN_SCHOOL_DATE, openSchoolDate);
     }
 
     public static boolean isWelcome() {
@@ -114,6 +121,7 @@ public class SettingsDTO {
 
     public static void setWelcome(boolean welcome) {
         SettingsDTO.welcome = welcome;
+        dao.setSetting(dao.KEY_SHOW_WELCOME, welcome?"true":"false");
     }
 
     public static int getCurrentWeek() {

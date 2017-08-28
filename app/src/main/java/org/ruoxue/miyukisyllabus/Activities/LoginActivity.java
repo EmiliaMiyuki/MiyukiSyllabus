@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivityWithSettings {
     EditText mVerify;
     CheckBox mRememberPassword;
 
-    SettingsDAO sdao = new SettingsDAO();
+    //SettingsDAO sdao = new SettingsDAO();
 
     final int TOAST_ERROR = 0,
             TOAST_OK = 1,
@@ -219,15 +219,11 @@ public class LoginActivity extends AppCompatActivityWithSettings {
                 }
                 if (mRememberPassword.isChecked()) {
                     if (!(mUsername.getText().toString().equals(saved_user_name) && password.equals(saved_password))) {
-                        sdao.setSetting(sdao.KEY_JWC_USER_NAME, mUsername.getText().toString());
-                        sdao.setSetting(sdao.KEY_JWC_PASSWORD, password);
                         SettingsDTO.setJwcUserName(mUsername.getText().toString());
                         SettingsDTO.setJwcPassword(password);
                     }
                 }
                 else if (password_saved) {
-                    sdao.setSetting(sdao.KEY_JWC_USER_NAME, "");
-                    sdao.setSetting(sdao.KEY_JWC_PASSWORD, "");
                     SettingsDTO.setJwcUserName("");
                     SettingsDTO.setJwcPassword("");
                 }

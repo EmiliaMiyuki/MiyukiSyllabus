@@ -65,7 +65,7 @@ public class SettingActivity extends AppCompatActivityWithSettings {
     int which_type_of_image_select;
     int state = 0;
 
-    SettingsDAO sdao = new SettingsDAO();
+    //SettingsDAO sdao = new SettingsDAO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,7 @@ public class SettingActivity extends AppCompatActivityWithSettings {
 
         setContentView(R.layout.activity_setting);
 
-        sdao.loadSettings();
+        SettingsDTO.dao.loadSettings();
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
@@ -133,7 +133,7 @@ public class SettingActivity extends AppCompatActivityWithSettings {
                         .setPositiveButton("是", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                sdao.dropTable();
+                                SettingsDTO.dao.dropTable();
                                 new android.app.AlertDialog.Builder(SettingActivity.this)
                                         .setCancelable(false)
                                         .setTitle(getResources().getString(R.string.setting_item_restore_defaults))
@@ -166,7 +166,6 @@ public class SettingActivity extends AppCompatActivityWithSettings {
                             public void onClick(DialogInterface dialog, int which) {
                                 String v = value.getYear() + "-" + (value.getMonth()+1) + "-" + value.getDayOfMonth();
                                 try {
-                                    sdao.setSetting(sdao.KEY_OPEN_SCHOOL_DATE, v);
                                     SettingsDTO.setOpenSchoolDate(v);
                                     mValue_currentWeek.setText(v);
                                     state = Static.changeState(state, Static.RETVAL_SETTING_CURRENT_WEEK);
@@ -194,7 +193,6 @@ public class SettingActivity extends AppCompatActivityWithSettings {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String v = value.getText().toString();
-                                sdao.setSetting(sdao.KEY_USER_NAME, v);
                                 SettingsDTO.setUserName(v);
                                 mValue_displayName.setText(v);
                                 state = Static.changeState(state, Static.RETVAL_SETTING_DISPLAY_NAME);
@@ -211,7 +209,6 @@ public class SettingActivity extends AppCompatActivityWithSettings {
                 boolean val = !mValue_notifyCourse.isChecked();
                 mValue_notifyCourse.setChecked(val);
                 try {
-                    sdao.setSetting(sdao.KEY_NOTIFY_COURSE, val?"true":"false");
                     SettingsDTO.setNotifyCourses(val);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -225,7 +222,6 @@ public class SettingActivity extends AppCompatActivityWithSettings {
                 boolean val = !mValue_showWelcomeTips.isChecked();
                 mValue_showWelcomeTips.setChecked(val);
                 try {
-                    sdao.setSetting(sdao.KEY_SHOW_WELCOME, val?"true":"false");
                     SettingsDTO.setWelcome(val);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -300,8 +296,8 @@ public class SettingActivity extends AppCompatActivityWithSettings {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String theme_name = themes[which];
-                                sdao.setSetting(sdao.KEY_THEME, theme_name);
                                 mValue_theme.setText(theme_name);
+                                SettingsDTO.setTheme(theme_name);
                                 Static.themeChanged = true;
                                 dialog.dismiss();
 
@@ -393,17 +389,14 @@ public class SettingActivity extends AppCompatActivityWithSettings {
                         switch (which_type_of_image_select) {
                             case 1:
                                 SettingsDTO.setAvaterImg(tmp_file.getAbsolutePath());
-                                sdao.setSetting(sdao.KEY_AVATER_IMG, tmp_file.getAbsolutePath());
                                 state = Static.changeState(state, Static.RETVAL_SETTING_CHANGE_PROFILE);
                                 break;
                             case 2:
                                 SettingsDTO.setRbackgoundImg(tmp_file.getAbsolutePath());
-                                sdao.setSetting(sdao.KEY_BACKGROUND_IMG, tmp_file.getAbsolutePath());
                                 state = Static.changeState(state, Static.RETVAL_SETTING_CHANGE_BACKGROUND);
                                 break;
                             case 3:
                                 SettingsDTO.setSyllabusBackgroundImg(tmp_file.getAbsolutePath());
-                                sdao.setSetting(sdao.KEY_SYLLABUS_IMG, tmp_file.getAbsolutePath());
                                 break;
                         }
                     }
@@ -449,17 +442,14 @@ public class SettingActivity extends AppCompatActivityWithSettings {
                             switch (which_type_of_image_select) {
                                 case 1:
                                     SettingsDTO.setAvaterImg("");
-                                    sdao.setSetting(sdao.KEY_AVATER_IMG, "");
                                     state = Static.changeState(state, Static.RETVAL_SETTING_CHANGE_PROFILE);
                                     break;
                                 case 2:
                                     SettingsDTO.setRbackgoundImg("");
-                                    sdao.setSetting(sdao.KEY_BACKGROUND_IMG, "");
                                     state = Static.changeState(state, Static.RETVAL_SETTING_CHANGE_BACKGROUND);
                                     break;
                                 case 3:
                                     SettingsDTO.setSyllabusBackgroundImg("");
-                                    sdao.setSetting(sdao.KEY_SYLLABUS_IMG, "");
                                     break;
                             }
                         } catch (Exception e) {
