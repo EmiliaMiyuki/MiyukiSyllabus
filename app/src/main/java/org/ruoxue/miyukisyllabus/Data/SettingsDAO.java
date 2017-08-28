@@ -20,7 +20,8 @@ public class SettingsDAO {
     // Constants
     public final String KEY_OPEN_SCHOOL_DATE = "OPEN_SCHOOL_DATE", KEY_FIRST_INIT = "FIRS_INIT", KEY_USER_NAME = "USER_NAME", KEY_AVATER_IMG = "AVATER_IMG",
             KEY_BACKGROUND_IMG = "BACKGROUND_IMG", KEY_THEME = "THEME", KEY_NOTIFY_COURSE = "NOTIFY_COURSE", KEY_JWC_USER_NAME = "JWC_USER_NAME",
-            KEY_JWC_PASSWORD = "JWC_PASSWORD", KEY_SHOW_WELCOME = "SHOW_WELCOME", KEY_SYLLABUS_IMG = "SYLLABUS_IMG";
+            KEY_JWC_PASSWORD = "JWC_PASSWORD", KEY_SHOW_WELCOME = "SHOW_WELCOME", KEY_SYLLABUS_IMG = "SYLLABUS_IMG",
+            KEY_NOTIFY_TIME_BEFORE = "NOTIFY_TIME_BEFORE", KEY_SUMMER_TIME = "SUMMER_TIME";
 
     public final String TABLE_NAME = "settings";
     public final String COLUMN_KEY = "key";
@@ -91,21 +92,25 @@ public class SettingsDAO {
         insert(KEY_JWC_USER_NAME, "");
         insert(KEY_SHOW_WELCOME, "");
         insert(KEY_SYLLABUS_IMG, "");
+        insert(KEY_SUMMER_TIME, "false");
+        insert(KEY_NOTIFY_TIME_BEFORE, "15");
     }
 
     public void loadSettings() {
         try {
-            SettingsDTO.setAvaterImg(getSetting(KEY_AVATER_IMG));
-            SettingsDTO.setFirstInit(getSettingBoolean(KEY_FIRST_INIT));
-            SettingsDTO.setJwcPassword(getSetting(KEY_JWC_PASSWORD));
-            SettingsDTO.setJwcUserName(getSetting(KEY_JWC_USER_NAME));
-            SettingsDTO.setNotifyCourses(getSettingBoolean(KEY_NOTIFY_COURSE));
-            SettingsDTO.setOpenSchoolDate(getSetting(KEY_OPEN_SCHOOL_DATE));
-            SettingsDTO.setRbackgoundImg(getSetting(KEY_BACKGROUND_IMG));
-            SettingsDTO.setTheme(getSetting(KEY_THEME));
-            SettingsDTO.setUserName(getSetting(KEY_USER_NAME));
-            SettingsDTO.setWelcome(getSettingBoolean(KEY_SHOW_WELCOME));
-            SettingsDTO.setSyllabusBackgroundImg(getSetting(KEY_SYLLABUS_IMG));
+            SettingsDTO.setAvaterImg(getSetting(KEY_AVATER_IMG), 1);
+            SettingsDTO.setFirstInit(getSettingBoolean(KEY_FIRST_INIT), 1);
+            SettingsDTO.setJwcPassword(getSetting(KEY_JWC_PASSWORD), 1);
+            SettingsDTO.setJwcUserName(getSetting(KEY_JWC_USER_NAME), 1);
+            SettingsDTO.setNotifyCourses(getSettingBoolean(KEY_NOTIFY_COURSE), 1);
+            SettingsDTO.setOpenSchoolDate(getSetting(KEY_OPEN_SCHOOL_DATE), 1);
+            SettingsDTO.setRbackgoundImg(getSetting(KEY_BACKGROUND_IMG), 1);
+            SettingsDTO.setTheme(getSetting(KEY_THEME), 1);
+            SettingsDTO.setUserName(getSetting(KEY_USER_NAME), 1);
+            SettingsDTO.setWelcome(getSettingBoolean(KEY_SHOW_WELCOME), 1);
+            SettingsDTO.setSyllabusBackgroundImg(getSetting(KEY_SYLLABUS_IMG), 1);
+            SettingsDTO.setSummmerTime(getSettingBoolean(KEY_SUMMER_TIME), 1);
+            SettingsDTO.setNotifyTimeBefore(getSettingInt(KEY_NOTIFY_TIME_BEFORE), 1);
         }
         catch (Exception e) {
             e.printStackTrace();

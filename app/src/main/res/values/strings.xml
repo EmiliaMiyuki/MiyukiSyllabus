@@ -31,10 +31,14 @@
     <string name="title_activity_setting">SettingActivity</string>
     <string name="setting_title_general">通用</string>
     <string name="setting_title_notification">通知</string>
-    <string name="setting_title_advanced">高级</string>
+    <string name="setting_title_ui">用户界面</string>
+    <string name="setting_title_clear_data">清除数据</string>
 
     <string name="setting_item_current_week">开学日期</string>
     <string name="setting_item_display_mame">显示的姓名</string>
+    <string name="setting_item_summer_time">夏令时</string>
+    <string name="setting_item_summer_time_desc">下午和晚上上课时间延后半个小时</string>
+
     <string name="setting_item_change_profile_image">更换头像图片</string>
     <string name="setting_item_change_profile_image_desc">更换用户名片上的头像</string>
     <string name="setting_item_theme">主题</string>
@@ -48,6 +52,7 @@
     <string name="setting_item_notificate_course_desc">设置是否在通知栏发送每日课程的通知</string>
     <string name="setting_display_welcome">显示欢迎提示</string>
     <string name="setting_display_welcome_desc">设置是否在应用启动时显示欢迎提示</string>
+    <string name="setting_notify_time_before">发送通知提前于上课时间</string>
 
     <string name="setting_clear_cache">清除缓存</string>
     <string name="setting_clear_cache_desc">清除用于保存头像和背景图片的缓存</string>
@@ -120,6 +125,6 @@
     <string name="syllabus_edit_place">上课地点</string>
 
     <string name="syllabs_action_choose_week">查看指定周课表</string>
-    <string name="syllabs_action_clear_data">清除所有信息</string>
+    <string name="syllabs_action_clear_data">清空课程表</string>
 
 </resources>

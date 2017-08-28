@@ -25,6 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.ruoxue.miyukisyllabus.Services.NotificationService;
 import org.ruoxue.miyukisyllabus.UIComponents.AppCompatActivityWithSettings;
 import org.ruoxue.miyukisyllabus.UIComponents.ManagedApplication;
 import org.ruoxue.miyukisyllabus.UIComponents.NavigationDrawerCallbacks;
@@ -158,6 +159,11 @@ public class MainActivity extends AppCompatActivityWithSettings
         }
 
         refreshList();
+
+        //启动服务
+        if (SettingsDTO.isNotifyCourses()) {
+            startService(new Intent(this, NotificationService.class));
+        }
     }
 
     protected void refreshList() {

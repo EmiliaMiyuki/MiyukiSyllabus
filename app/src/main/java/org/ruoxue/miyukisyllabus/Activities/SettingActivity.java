@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +60,12 @@ public class SettingActivity extends AppCompatActivityWithSettings {
     LinearLayout mItem_clearCache;
 
     LinearLayout mItem_clearCourses;
+
+    LinearLayout mItem_summerTime;
+    Switch       mValue_summerTime;
+
+    LinearLayout mItem_notifyBefore;
+    TextView     mValue_notifyBefore;
 
     File tmp_file;
 
@@ -121,6 +128,51 @@ public class SettingActivity extends AppCompatActivityWithSettings {
         mItem_changeSyllabusBg = (LinearLayout)findViewById(R.id.setting_change_bg_syllabus);
 
         mItem_clearCourses = (LinearLayout)findViewById(R.id.setting_delete_course);
+
+        mItem_summerTime = (LinearLayout)findViewById(R.id.setting_summber_time);
+        mValue_summerTime = (Switch)findViewById(R.id.setting_summber_time_val);
+        mValue_summerTime.setChecked(SettingsDTO.isSummmerTime());
+
+        mItem_notifyBefore = (LinearLayout)findViewById(R.id.setting_notify_time_before);
+        mValue_notifyBefore = (TextView)findViewById(R.id.setting_val_notify_time_before);
+        mValue_notifyBefore.setText(SettingsDTO.getNotifyTimeBefore()+"分钟");
+
+        mItem_summerTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean val = !mValue_summerTime.isChecked();
+                mValue_summerTime.setChecked(val);
+                try {
+                    SettingsDTO.setSummmerTime(val);
+                    Toast.makeText(SettingActivity.this, "更改将于重启程序后生效", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        mItem_notifyBefore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final NumberPicker value = new NumberPicker(SettingActivity.this);
+                value.setMinValue(1);
+                value.setMaxValue(29);
+                value.setValue(SettingsDTO.getNotifyTimeBefore());
+                new AlertDialog.Builder(SettingActivity.this)
+                        .setTitle("选择提前的分钟数")
+                        .setView(value)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SettingsDTO.setNotifyTimeBefore(value.getValue());
+                                mValue_notifyBefore.setText(value.getValue()+"分钟");
+                                Toast.makeText(SettingActivity.this, "更改将于重启程序后生效", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
+            }
+        });
 
         mItem_resoreDefaults.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,6 +262,7 @@ public class SettingActivity extends AppCompatActivityWithSettings {
                 mValue_notifyCourse.setChecked(val);
                 try {
                     SettingsDTO.setNotifyCourses(val);
+                    Toast.makeText(SettingActivity.this, "更改将于重启程序后生效", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

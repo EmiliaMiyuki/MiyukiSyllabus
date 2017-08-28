@@ -22,6 +22,78 @@ public class SettingsDTO {
     static String  openSchoolDate;
     static boolean  welcome;
     static String syllabusBackgroundImg = "";
+    static int     notifyTimeBefore;
+    static boolean summmerTime;
+
+    public static void setSummmerTime(boolean summmerTime, int non_update) {
+        SettingsDTO.summmerTime = summmerTime;
+    }
+
+    public static void setFirstInit(boolean firstInit, int non_update) {
+        SettingsDTO.firstInit = firstInit;
+    }
+
+    public static void setUserName(String userName, int non_update) {
+        SettingsDTO.userName = userName;
+    }
+
+    public static void setAvaterImg(String avaterImg, int non_update) {
+        SettingsDTO.avaterImg = avaterImg;
+    }
+
+    public static void setRbackgoundImg(String rbackgoundImg, int non_update) {
+        SettingsDTO.rbackgoundImg = rbackgoundImg;
+    }
+
+    public static void setTheme(String theme, int non_update) {
+        SettingsDTO.theme = theme;
+    }
+
+    public static void setNotifyCourses(boolean notifyCourses, int non_update) {
+        SettingsDTO.notifyCourses = notifyCourses;
+    }
+
+    public static void setJwcUserName(String jwcUserName, int non_update) {
+        SettingsDTO.jwcUserName = jwcUserName;
+    }
+
+    public static void setJwcPassword(String jwcPassword, int non_update) {
+        SettingsDTO.jwcPassword = jwcPassword;
+    }
+
+    public static void setOpenSchoolDate(String openSchoolDate, int non_update) {
+        SettingsDTO.openSchoolDate = openSchoolDate;
+    }
+
+    public static void setWelcome(boolean welcome, int non_update) {
+        SettingsDTO.welcome = welcome;
+    }
+
+    public static void setSyllabusBackgroundImg(String syllabusBackgroundImg, int non_update) {
+        SettingsDTO.syllabusBackgroundImg = syllabusBackgroundImg;
+    }
+
+    public static void setNotifyTimeBefore(int notifyTimeBefore, int non_update) {
+        SettingsDTO.notifyTimeBefore = notifyTimeBefore;
+    }
+
+    public static int getNotifyTimeBefore() {
+        return notifyTimeBefore;
+    }
+
+    public static void setNotifyTimeBefore(int notifyTimeBefore) {
+        SettingsDTO.notifyTimeBefore = notifyTimeBefore;
+        dao.setSetting(dao.KEY_NOTIFY_TIME_BEFORE, ""+notifyTimeBefore);
+    }
+
+    public static boolean isSummmerTime() {
+        return summmerTime;
+    }
+
+    public static void setSummmerTime(boolean summmerTime) {
+        SettingsDTO.summmerTime = summmerTime;
+        dao.setSetting(dao.KEY_SUMMER_TIME, summmerTime?"true":"false");
+    }
 
     public static final SettingsDAO dao = new SettingsDAO();
 

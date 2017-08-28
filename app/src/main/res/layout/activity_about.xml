@@ -42,11 +42,12 @@
                             />
 
                         <TextView
+                            android:id="@+id/about_version_val"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#888"
                             android:textSize="14sp"
-                            android:text="@string/about_version_desc"
+                            android:text=""
                             />
 
                     </LinearLayout>

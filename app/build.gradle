@@ -7,8 +7,8 @@ android {
         applicationId 'org.ruoxue.miyukisyllabus'
         minSdkVersion 23
         targetSdkVersion 23
-        versionCode 2
-        versionName "1.1"
+        versionCode 4
+        versionName "1.1.28.2"
     }
     buildTypes {
         release {

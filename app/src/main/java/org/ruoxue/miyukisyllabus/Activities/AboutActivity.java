@@ -8,12 +8,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.ruoxue.miyukisyllabus.R;
 import org.ruoxue.miyukisyllabus.UIComponents.AppCompatActivityWithSettings;
 
 public class AboutActivity extends AppCompatActivityWithSettings {
     Toolbar mToolbar;
+
+    TextView     mValue_Version;
 
     LinearLayout mItem_License;
     LinearLayout mItem_OpenSource;
@@ -38,6 +41,15 @@ public class AboutActivity extends AppCompatActivityWithSettings {
         mItem_License = (LinearLayout)findViewById(R.id.about_gpl);
         mItem_OpenSource = (LinearLayout)findViewById(R.id.about_license);
         mItem_Source = (LinearLayout)findViewById(R.id.about_source);
+
+        mValue_Version = (TextView)findViewById(R.id.about_version_val);
+        try {
+            mValue_Version.setText(getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            mValue_Version.setText("获取版本号失败");
+        }
 
         mItem_License.setOnClickListener(new View.OnClickListener() {
             @Override

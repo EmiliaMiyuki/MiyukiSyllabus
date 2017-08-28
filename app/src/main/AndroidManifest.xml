@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.ruoxue.miyukisyllabus" >
+    package="org.ruoxue.miyukisyllabus">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -10,10 +10,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +22,7 @@
         </activity>
         <activity
             android:name=".Activities.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="org.ruoxue.miyukisyllabus.MainActivity" />
 
@@ -31,32 +31,30 @@
         </activity>
         <activity
             android:name=".Activities.SettingActivity"
-            android:label="@string/title_activity_setting" >
-        </activity>
+            android:label="@string/title_activity_setting"></activity>
         <activity
             android:name=".Activities.AboutActivity"
-            android:label="@string/title_activity_about" >
-        </activity>
+            android:label="@string/title_activity_about"></activity>
         <activity
             android:name=".Activities.SyllabusActivity"
-            android:label="@string/title_activity_syllabus" >
-        </activity>
+            android:label="@string/title_activity_syllabus"></activity>
         <activity
             android:name=".Activities.ImportActivity"
-            android:label="@string/title_activity_import" >
-        </activity>
+            android:label="@string/title_activity_import"></activity>
         <activity
             android:name=".Activities.GradePrepareActivity"
-            android:label="@string/title_activity_grade_prepare" >
-        </activity>
+            android:label="@string/title_activity_grade_prepare"></activity>
         <activity
             android:name=".Activities.GradeActivity"
-            android:label="@string/title_activity_grade" >
-        </activity>
+            android:label="@string/title_activity_grade"></activity>
         <activity
             android:name=".Activities.WebBrowserActivity"
-            android:label="@string/title_activity_web_browser" >
-        </activity>
+            android:label="@string/title_activity_web_browser"></activity>
+
+        <service
+            android:name=".Services.NotificationService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

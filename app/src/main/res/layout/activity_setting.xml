@@ -63,8 +63,72 @@
                             android:textSize="14sp"
                             android:text="第1周"
                             />
+                    </LinearLayout>
+
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/setting_summber_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:orientation="horizontal"
+                        >
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000"
+                                android:textSize="16sp"
+                                android:layout_marginBottom="3dp"
+                                android:text="@string/setting_item_summer_time"
+                                />
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="#888"
+                                android:textSize="14sp"
+                                android:text="@string/setting_item_summer_time_desc"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            >
+                            <Switch
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/setting_summber_time_val"
+                                android:checked="false"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:layout_marginTop="7dp"
+                                />
+                        </LinearLayout>
 
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/item_title_ui"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="14sp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="14dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="@string/setting_title_ui"
+                        />
 
                     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/setting_display_name"
@@ -337,8 +401,39 @@
 
                     </LinearLayout>
 
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/setting_notify_time_before"
+                        android:orientation="vertical" android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000"
+                            android:textSize="16sp"
+                            android:layout_marginBottom="3dp"
+                            android:text="@string/setting_notify_time_before"
+                            />
+
+                        <TextView
+                            android:id="@+id/setting_val_notify_time_before"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#888"
+                            android:textSize="14sp"
+                            android:text="15分钟"
+                            />
+
+                    </LinearLayout>
+
                     <TextView
-                        android:id="@+id/item_title_advanced"
+                        android:id="@+id/item_title_clear_data"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="?attr/colorPrimary"
@@ -347,7 +442,7 @@
                         android:paddingTop="14dp"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
-                        android:text="@string/setting_title_advanced"
+                        android:text="@string/setting_title_clear_data"
                         />
 
 
