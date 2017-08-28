@@ -277,7 +277,7 @@ public class MainActivity extends AppCompatActivityWithSettings
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
+            getMenuInflater().inflate(R.menu.menu_main, menu);
             return true;
         }
         return super.onCreateOptionsMenu(menu);
@@ -293,7 +293,6 @@ public class MainActivity extends AppCompatActivityWithSettings
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
-            settingDao.loadSettings();
             refreshList();
             return true;
         }
