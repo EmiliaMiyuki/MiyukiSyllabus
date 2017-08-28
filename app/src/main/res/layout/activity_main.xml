@@ -25,8 +25,7 @@
                 android:textSize="18dp"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:paddingTop="80dp"
-                android:visibility="invisible"/>
+                android:paddingTop="80dp" />
             <ListView
                 android:id="@+id/list_daily_course"
                 android:layout_width="match_parent"

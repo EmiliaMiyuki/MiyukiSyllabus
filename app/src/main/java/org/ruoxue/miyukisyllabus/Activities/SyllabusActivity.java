@@ -115,7 +115,7 @@ public class SyllabusActivity extends AppCompatActivityWithSettings {
         getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
         @ColorInt int background_color = typedValue.data;
 
-        int noClassBlkTranparency = SettingsDTO.getSyllabusBackgroundImg().equals("")?180:0;
+        int noClassBlkTranparency = SettingsDTO.getSyllabusBackgroundImg().equals("")?220:0;
 
         for (final CourseData data : lst) {
             int i = (data.getWeekday()) + data.getCourseIndex() *5;

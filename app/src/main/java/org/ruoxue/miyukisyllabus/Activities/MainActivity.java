@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -168,8 +169,8 @@ public class MainActivity extends AppCompatActivityWithSettings
 
         this.setTitle("今日课程(" + class_list.size() + ")");
 
-        if (class_list.size() == 0)
-            m_note_no_class.setVisibility(View.VISIBLE);
+        if (class_list.size() != 0)
+            ((LinearLayout)findViewById(R.id.container)).removeView(m_note_no_class);
 
         // 初始化list
         list_daily_course = (ListView)findViewById(R.id.list_daily_course);

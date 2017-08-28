@@ -23,12 +23,15 @@ public class SettingsDTO {
     static boolean  welcome;
     static String syllabusBackgroundImg = "";
 
+    static SettingsDAO dao = new SettingsDAO();
+
     public static String getSyllabusBackgroundImg() {
         return syllabusBackgroundImg;
     }
 
     public static void setSyllabusBackgroundImg(String syllabusBackgroundImg) {
         SettingsDTO.syllabusBackgroundImg = syllabusBackgroundImg;
+        dao.setSetting(dao.KEY_SYLLABUS_IMG, syllabusBackgroundImg);
     }
 
     public static boolean isFirstInit() {
@@ -37,6 +40,7 @@ public class SettingsDTO {
 
     public static void setFirstInit(boolean firstInit) {
         SettingsDTO.firstInit = firstInit;
+        dao.setSetting(dao.KEY_FIRST_INIT, ""+firstInit);
     }
 
     public static String getUserName() {
@@ -45,6 +49,7 @@ public class SettingsDTO {
 
     public static void setUserName(String userName) {
         SettingsDTO.userName = userName;
+        dao.setSetting(dao.KEY_USER_NAME, userName);
     }
 
     public static String getAvaterImg() {

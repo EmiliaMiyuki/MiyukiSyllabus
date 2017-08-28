@@ -22,7 +22,7 @@
     <color name="titleText">#000099</color>
     <color name="subTitleText">#888</color>
 
-    <color name="sy_title">@android:drawable/screen_background_light_transparent</color>
+    <color name="sy_title">#8FFF</color>
     <color name="sy_class">#99009944</color>
     <color name="sy_noclass">#cccccc44</color>
 
