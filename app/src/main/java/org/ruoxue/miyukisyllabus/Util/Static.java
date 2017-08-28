@@ -274,10 +274,11 @@ public class Static {
         }
     }
 
-    public static final String THEME_NAME_PINK = "粉红色 (Pink)", THEME_NAME_PURPLE = "紫色 (Purple)", THEME_NAME_BLUE="蓝色 (Blue)", THEME_NAME_BLACK = "黑色 (Black)";
+    public static final String THEME_NAME_PINK = "粉红色 (Pink)", THEME_NAME_PURPLE = "紫色 (Purple)", THEME_NAME_BLUE="蓝色 (Blue)", THEME_NAME_BLACK = "黑色 (Black)"
+            , THEME_NAME_GREEN = "绿色 (Green)";
 
     public static String[] getThemeList() {
-        return new String[] { THEME_NAME_PINK, THEME_NAME_PURPLE, THEME_NAME_BLUE, THEME_NAME_BLACK };
+        return new String[] { THEME_NAME_PINK, THEME_NAME_PURPLE, THEME_NAME_BLUE, THEME_NAME_BLACK, THEME_NAME_GREEN };
     }
 
     public static int getThemeIdByThemeName(String name) {
@@ -285,6 +286,7 @@ public class Static {
         if (name.equals(THEME_NAME_PINK)) return R.style.AppTheme;
         if (name.equals(THEME_NAME_PURPLE)) return R.style.AppTheme_Purple;
         if (name.equals(THEME_NAME_BLACK)) return R.style.AppTheme_Black;
+        if (name.equals(THEME_NAME_GREEN)) return R.style.AppTheme_Green;
         else return R.style.AppTheme;
     }
 
