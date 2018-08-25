@@ -1,7 +1,9 @@
 package org.ruoxue.miyukisyllabus.Activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -41,6 +43,10 @@ public class GradeActivity extends AppCompatActivityWithSettings {
 
     ProgressDialog process_dialog = null;
     ArrayList<HashMap<String, String>> result;
+
+    // 是否需要教学评价
+    boolean sholdTeachingEval = false;
+    String alertString = null;
 
     final int
         CODE_GET_INFO_FAILED = 3,
@@ -187,8 +193,37 @@ public class GradeActivity extends AppCompatActivityWithSettings {
                     process_dialog.dismiss();
                     break;
                 case CODE_GET_INFO_FAILED:
-                    Toast.makeText(GradeActivity.this, "获取成绩失败，请返回重试", Toast.LENGTH_SHORT).show();
+                    // 如果有弹框提示
                     process_dialog.dismiss();
+
+                    if (alertString == null) {
+                        alertString = "获取成绩失败，请返回重试";
+                    }
+
+                    AlertDialog alertDialog = new AlertDialog.Builder(GradeActivity.this)
+                            .setMessage(alertString)
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    GradeActivity.this.finish();
+                                }
+                            })
+                            .setCancelable(false)
+                            .create();
+
+                    if (sholdTeachingEval) {
+                        // 如果提示需要教学评价
+                        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "前往教学评价", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(GradeActivity.this, EvalActivity.class);
+                                startActivity(intent);
+                                GradeActivity.this.finish();
+                            }
+                        });
+                    }
+
+                    alertDialog.show();
                     break;
             }
         }
@@ -206,7 +241,7 @@ public class GradeActivity extends AppCompatActivityWithSettings {
         conn_1.header("Cookies", Static.rp.cookies.toString());
         conn_1.timeout(30000);
         conn_1.followRedirects(false);
-        Document d1;
+        Document d1 = null;
         System.out.println("referer: "+conn_1.request().header("Referer"));
         try {
             d1 = conn_1.get();
@@ -216,6 +251,7 @@ public class GradeActivity extends AppCompatActivityWithSettings {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+
             return null;
         }
 
@@ -257,6 +293,19 @@ public class GradeActivity extends AppCompatActivityWithSettings {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        // 判断是否有弹窗
+        Pattern pattern = Pattern.compile("alert\\(['\"](.*?)['\"]\\)");
+        Matcher matcher = pattern.matcher(d1.html());
+
+        if (matcher.find()) {
+            String msg = matcher.group(1);
+            alertString = msg;
+            if (msg.contains("评价")) {
+                sholdTeachingEval = true;
+            }
+        }
+
         return null;
     }
 }

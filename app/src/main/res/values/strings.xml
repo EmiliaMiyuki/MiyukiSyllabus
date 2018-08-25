@@ -6,7 +6,7 @@
 
     <string name="main_menu_today">今日课程</string>
     <string name="main_menu_full_list">课程表</string>
-    <string name="main_menu_import">从教务系统导入课表</string>
+    <string name="main_menu_import">导入课表</string>
     <string name="main_menu_grade">成绩查询</string>
     <string name="main_menu_settings">设置</string>
     <string name="main_menu_about">关于</string>

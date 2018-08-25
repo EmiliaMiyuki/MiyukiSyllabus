@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/drawer"
+    android:layout_width="match_parent" android:fitsSystemWindows="true"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <include android:id="@+id/toolbar_actionbar" layout="@layout/toolbar_default"
+            android:layout_width="match_parent" android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/item_title_general"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="14sp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="14dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="教学评价"
+                    />
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/eval_auto"
+                    android:orientation="vertical" android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="3dp"
+                        android:text="一键评价"
+                        />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#888"
+                        android:textSize="14sp"
+                        android:text="自动评价所有课程"
+                        />
+                </LinearLayout>
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/eval_mannual"
+                    android:orientation="vertical" android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="3dp"
+                        android:text="手动评价"
+                        />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#888"
+                        android:textSize="14sp"
+                        android:text="转到教务处网站以手动评价"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>

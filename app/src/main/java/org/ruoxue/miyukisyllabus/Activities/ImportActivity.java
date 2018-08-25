@@ -96,6 +96,10 @@ public class ImportActivity extends AppCompatActivityWithSettings {
             classes_tmp = doc_class.select("#Table1 tr");
             System.out.println(classes_tmp.size());
 
+            if (classes_tmp.size() < 5*7) {
+                return false;
+            }
+
             dao.clearData();
             for (int i=0; i<5; i++) {
                 Element e = classes_tmp.get((i+1)*2);

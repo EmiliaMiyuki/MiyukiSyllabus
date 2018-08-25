@@ -31,30 +31,32 @@
         </activity>
         <activity
             android:name=".Activities.SettingActivity"
-            android:label="@string/title_activity_setting"></activity>
+            android:label="@string/title_activity_setting" />
         <activity
             android:name=".Activities.AboutActivity"
-            android:label="@string/title_activity_about"></activity>
+            android:label="@string/title_activity_about" />
         <activity
             android:name=".Activities.SyllabusActivity"
-            android:label="@string/title_activity_syllabus"></activity>
+            android:label="@string/title_activity_syllabus" />
         <activity
             android:name=".Activities.ImportActivity"
-            android:label="@string/title_activity_import"></activity>
+            android:label="@string/title_activity_import" />
         <activity
             android:name=".Activities.GradePrepareActivity"
-            android:label="@string/title_activity_grade_prepare"></activity>
+            android:label="@string/title_activity_grade_prepare" />
         <activity
             android:name=".Activities.GradeActivity"
-            android:label="@string/title_activity_grade"></activity>
+            android:label="@string/title_activity_grade" />
         <activity
             android:name=".Activities.WebBrowserActivity"
-            android:label="@string/title_activity_web_browser"></activity>
+            android:label="@string/title_activity_web_browser" />
 
         <service
             android:name=".Services.NotificationService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".Activities.EvalActivity"></activity>
     </application>
 
 </manifest>

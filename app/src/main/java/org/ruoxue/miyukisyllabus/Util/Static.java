@@ -57,6 +57,7 @@ public class Static {
     public static final RequestParamters rp = new RequestParamters();
 
     public static String package_name = "org.ruoxue.miyukisyllabus";
+    public static String internal_package_name = null;
 
     public static void checkResourceDir() {
         File dir = new File(PATH_DATA_DIR);
